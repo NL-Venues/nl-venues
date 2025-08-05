@@ -835,7 +835,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry
   puma (~> 6.6)
-  pundit-resources (~> 1.1.4)!
+  pundit-resources (~> 1.1.6)!
   rack-mini-profiler
   rack-protection
   rails (~> 7.1.5)
