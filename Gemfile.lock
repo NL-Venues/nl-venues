@@ -61,10 +61,10 @@ GIT
 
 GIT
   remote: https://github.com/better-together-org/storext.git
-  revision: 1d7c3707b3e412fece0022c16cc6f51564969d2c
+  revision: ebc92461e95d07c34f5d8eac4eb7ad13cfd92afa
   specs:
-    storext (3.3.0)
-      activerecord (>= 4.0, < 8)
+    storext (3.3.1)
+      activerecord (>= 4.0, < 8.1)
       virtus
 
 GEM
@@ -478,6 +478,8 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.18.9-aarch64-linux-gnu)
+      racc (~> 1.4)
     nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
     noticed (2.8.0)
@@ -488,6 +490,7 @@ GEM
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
+    pg (1.6.0-aarch64-linux)
     pg (1.6.0-x86_64-linux)
     popper_js (2.11.8)
     pp (0.6.2)
