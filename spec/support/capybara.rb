@@ -4,8 +4,9 @@ require 'capybara/rspec'
 require 'tmpdir'
 
 Capybara.server = :puma, { Silent: true }
+Capybara.default_max_wait_time = 5
 
-Capybara.register_driver :selenium_headless_chrome do |app|
+Capybara.register_driver :selenium_chrome_headless do |app|
   options = Selenium::WebDriver::Options.chrome(
     args: %w[
       headless
@@ -25,4 +26,4 @@ Capybara.register_driver :selenium_headless_chrome do |app|
   )
 end
 
-Capybara.javascript_driver = :selenium_headless_chrome
+Capybara.javascript_driver = :selenium_chrome_headless
