@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_11_150711) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_14_214938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -139,8 +139,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_11_150711) do
     t.string "authorable_type", null: false
     t.uuid "authorable_id", null: false
     t.uuid "author_id", null: false
+    t.uuid "creator_id"
     t.index ["author_id"], name: "by_authorship_author"
     t.index ["authorable_type", "authorable_id"], name: "by_authorship_authorable"
+    t.index ["creator_id"], name: "by_better_together_authorships_creator"
   end
 
   create_table "better_together_calendar_entries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
