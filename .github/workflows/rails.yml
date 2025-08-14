@@ -5,7 +5,7 @@
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
 name: "Ruby on Rails CI"
-on: push
+on: { push: { branches: [main, dev] }, pull_request: { branches: [main, dev] } }
 jobs:
   rspec:
     runs-on: ubuntu-latest
@@ -49,6 +49,11 @@ jobs:
           bundler-cache: true
       - name: Install Chrome
         run: sudo apt-get install -y chromium-browser
+      - name: Generate Active Record encryption keys (test only)
+        run: |
+          echo "ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=$(openssl rand -base64 32)" >> $GITHUB_ENV
+          echo "ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY=$(openssl rand -base64 32)" >> $GITHUB_ENV
+          echo "ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT=$(openssl rand -base64 32)" >> $GITHUB_ENV
       # Add or replace database setup steps here
       - name: Set up database schema
         run: rm -f tmp/pids/server.pid && bundle exec rails db:schema:load
