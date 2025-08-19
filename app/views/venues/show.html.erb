@@ -13,12 +13,17 @@
         </div>
       <% end %>
       <% if policy(@venue).destroy? %>
-        <div class="btn-group" role="group">
+        <div class="btn-group me-2" role="group">
         <%= link_to @venue, method: :delete, data: { 'turbo-method': 'delete', turbo_confirm: t('venues.confirm_destroy') }, class: 'btn btn-danger btn-sm' do %>
           <i class="fas fa-trash-alt"></i> <%= t('globals.destroy') %>
         <% end %>
         </div>
       <% end %>
+			<% if policy(@venue.events.build).create? %>
+			<div class="btn-group" role="group">
+				<%= link_to 'Create Event', new_event_path(host_type: @venue.class, host_id: @venue.id), class: 'btn btn-primary btn-sm' %>
+			</div>
+			<% end %>
       </div>
     <% end %>
 
