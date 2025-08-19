@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module NlVenues
+  # ActiveSupport Concern for EventPolicy
   module EventPolicy
     extend ActiveSupport::Concern
 

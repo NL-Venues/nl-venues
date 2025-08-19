@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module NlVenues
+  # ActiveSupport Concern for Person model
   module Person
     extend ActiveSupport::Concern
 
