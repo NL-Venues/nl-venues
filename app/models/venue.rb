@@ -17,6 +17,9 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   has_many :buildings, through: :venue_buildings
 
+  has_many :event_hosts, as: :host, class_name: 'BetterTogether::EventHost'
+  has_many :events, through: :event_hosts
+
   has_many :venue_images,
            -> { order({ primary_flag: :desc }, { position: :asc }) }, dependent: :destroy
 
