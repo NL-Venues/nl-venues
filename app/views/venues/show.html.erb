@@ -155,10 +155,11 @@
     </section>
   <% end %>
 
-	<% if @venue.events.any? %>
+	<% authorized_events = @venue.events.select { |event| policy(event).show? } %>
+	<% if authorized_events.any? %>
 		<h3><%= t('venues.events') %></h3>
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-				<%= render partial: 'better_together/events/event', collection: @venue.events %>
+				<%= render partial: 'better_together/events/event', collection: authorized_events %>
 		</div>
 	<% end %>
 </div>
