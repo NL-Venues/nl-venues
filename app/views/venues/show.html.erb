@@ -21,7 +21,9 @@
       <% end %>
 			<% if policy(BetterTogether::Event.new).create? %>
 			<div class="btn-group" role="group">
-				<%= link_to 'Create Event', new_event_path(host_type: @venue.class, host_id: @venue.id), class: 'btn btn-primary btn-sm' %>
+				<%= link_to new_event_path(host_type: @venue.class, host_id: @venue.id), class: 'btn btn-primary btn-sm' do %>
+					<i class="fas fa-calendar pe-1"></i><%= t('venues.create_event') %>  
+				<% end %>
 			</div>
 			<% end %>
       </div>
