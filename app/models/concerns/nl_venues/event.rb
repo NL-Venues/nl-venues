@@ -7,17 +7,22 @@ module NlVenues
 
     included do
       has_many :host_venues, through: :event_hosts, source: :host, source_type: 'Venue'
-      validate :venue_event_creation
+      validate :host_event_creation
 
       # TODO: validation currently not working as expected
-      def venue_event_creation
-        return unless creator_id.present? && host_venues.any?
+      def host_event_creation
+        return unless creator_id.present? && event_hosts.any?
 
-        venues_overlap = creator.venues.intersect?(host_venues)
+        return if event_host_member?(creator)
 
-        return if venues_overlap
+        errors.add(:event_hosts, 'You do not have permission to create an event for this host.')
+      end
 
-        errors.add(:host_venues, 'You do not have permission to create an event for this host.')
+      def event_host_member?(person)
+        can_represent_host = event_hosts.any? && person.valid_event_host_ids.any?
+
+        has_common_hosts = event_hosts.to_a.map(&:host_id).intersect?(person.valid_event_host_ids)
+        can_represent_host && has_common_hosts
       end
     end
   end
