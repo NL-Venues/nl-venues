@@ -12,6 +12,8 @@ module NlVenues
     end
 
     def venue_access?
+      return false unless user.present?
+
       record.host_venues.any? ||
         agent.venues.any?
     end
