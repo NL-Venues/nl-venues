@@ -38,6 +38,7 @@ en:
   venues:
     back_to_venues: "Back to Venues"
     confirm_destroy: 'Are you sure you want to remove this Venue?'
+    events: Events
     save_venue: "Save Venue"
     tabs:
       details: "Details"

@@ -19,3 +19,5 @@ es:
       date_picker: "%d/%m/%Y"
       datetime_picker: "%d/%m/%Y %H:%M" # 24-hour format
     pm: pm
+  venues:
+    events: Eventos

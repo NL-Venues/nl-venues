@@ -154,7 +154,7 @@
   <% end %>
 
 	<% if @venue.events.any? %>
-		<h3>Events</h3>
+		<h3><%= t('venues.events') %></h3>
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 				<%= render partial: 'better_together/events/event', collection: @venue.events %>
 		</div>
