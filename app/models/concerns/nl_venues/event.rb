@@ -15,7 +15,7 @@ module NlVenues
 
         return if event_host_member?(creator)
 
-        errors.add(:event_hosts, 'You do not have permission to create an event for this host.')
+        errors.add(:event_hosts, I18n.t('pundit.errors.create', resource: 'Event'))
       end
 
       def event_host_member?(person)
