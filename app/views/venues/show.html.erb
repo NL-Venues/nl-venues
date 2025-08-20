@@ -19,7 +19,7 @@
         <% end %>
         </div>
       <% end %>
-			<% if policy(@venue.events.build).create? %>
+			<% if policy(BetterTogether::Event.new).create? %>
 			<div class="btn-group" role="group">
 				<%= link_to 'Create Event', new_event_path(host_type: @venue.class, host_id: @venue.id), class: 'btn btn-primary btn-sm' %>
 			</div>
@@ -152,4 +152,11 @@
       <%= render partial: 'better_together/shared/map', locals: { map: @venue.map } %>
     </section>
   <% end %>
+
+	<% if @venue.events.any? %>
+		<h3>Events</h3>
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+				<%= render partial: 'better_together/events/event', collection: @venue.events %>
+		</div>
+	<% end %>
 </div>
