@@ -23,6 +23,8 @@ gem 'bootsnap', '>= 1.7.0', require: false
 
 gem 'fog-aws'
 
+gem 'ostruct'
+
 # Database adapter for PostgreSQL
 gem 'pg', '>= 0.18', '< 2.0'
 # Puma as the app server
