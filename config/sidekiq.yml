@@ -10,6 +10,7 @@ development:
     - [es_indexing, 3]   # Elasticsearch indexing queue with priority 3 (lower priority)
     - [geocoding, 3]   # Geocoding queue with priority 3 (lower priority)
     - [metrics, 3]   # Metrics queue with priority 3 (lower priority)
+    - [notifications, 3]   # Notifications queue with priority 3 (lower priority)
 
 test:
   <<: *default
@@ -19,15 +20,7 @@ test:
     - [es_indexing, 3]   # Elasticsearch indexing queue with priority 3 (lower priority)
     - [geocoding, 3]   # Geocoding queue with priority 3 (lower priority)
     - [metrics, 3]   # Metrics queue with priority 3 (lower priority)
-
-staging:
-  <<: *default
-  queues:
-    - [nl_venues_staging_default, 1]   # Default queue with priority 1
-    - [nl_venues_staging_mailers, 2]   # Mailers queue with priority 2
-    - [nl_venues_staging_es_indexing, 3]   # Elasticsearch indexing queue with priority 3 (lower priority)
-    - [nl_venues_staging_geocoding, 3]   # Geocoding queue with priority 3 (lower priority)
-    - [nl_venues_staging_metrics, 3]   # Metrics queue with priority 3 (lower priority)
+    - [notifications, 3]   # Notifications queue with priority 3 (lower priority)
 
 production:
   <<: *default
@@ -37,3 +30,4 @@ production:
     - [nl_venues_production_es_indexing, 3]   # Elasticsearch indexing queue with priority 3 (lower priority)
     - [nl_venues_production_geocoding, 3]   # Geocoding queue with priority 3 (lower priority)
     - [nl_venues_production_metrics, 3]   # Metrics queue with priority 3 (lower priority)
+    - [nl_venues_production_notifications, 3]   # Notifications queue with priority 3 (lower priority)
