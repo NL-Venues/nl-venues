@@ -23,6 +23,8 @@ gem 'bootsnap', '>= 1.7.0', require: false
 
 gem 'fog-aws'
 
+gem 'ostruct'
+
 # Database adapter for PostgreSQL
 gem 'pg', '>= 0.18', '< 2.0'
 # Puma as the app server
@@ -33,7 +35,7 @@ gem 'pundit-resources', '~> 1.1.4', github: 'better-together-org/pundit-resource
 
 # Core Rails gem
 gem 'rack-protection'
-gem 'rails', '~> 7.1.5'
+gem 'rails', '~> 7.2.2.2'
 
 # Redis for ActionCable and background jobs
 gem 'redis', '~> 5.4'
