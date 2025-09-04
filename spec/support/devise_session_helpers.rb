@@ -25,7 +25,7 @@ module DeviseSessionHelpers
     click_button 'Sign In'
   end
 
-  def sign_up_new_user(token, email, password, person)
+  def sign_up_new_user(token, email, password, person) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     visit better_together.new_user_registration_path(invitation_code: token, locale: I18n.locale)
     fill_in_registration_form(email, password, person)
     click_button 'Sign Up'
@@ -48,26 +48,25 @@ module DeviseSessionHelpers
     created_user
   end
 
-  def fill_in_registration_form(email, password, person)
+  def fill_in_registration_form(email, password, person) # rubocop:todo Metrics/MethodLength
     fill_in_email_and_password(email, password)
     fill_in 'user[password_confirmation]', with: password
     fill_in 'user[person_attributes][name]', with: person.name
     fill_in 'user[person_attributes][identifier]', with: person.identifier
     fill_in 'user[person_attributes][description]', with: person.description
-    
+
     # Check all required agreement checkboxes
-    required_agreements = [
-      'terms_of_service_agreement',
-      'privacy_policy_agreement',
-      'code_of_conduct_agreement'
+    required_agreements = %w[
+      terms_of_service_agreement
+      privacy_policy_agreement
+      code_of_conduct_agreement
     ]
-    
     required_agreements.each do |field_name|
       if page.has_field?(field_name)
-        puts "Checking required agreement: #{field_name}"
-        check field_name
+puts "Checking required agreement: #{field_name}" # rubocop:todo Layout/IndentationWidth
+check field_name
       else
-        puts "Warning: Required agreement field '#{field_name}' not found on page"
+puts "Warning: Required agreement field '#{field_name}' not found on page" # rubocop:todo Layout/IndentationWidth
       end
     end
   end
