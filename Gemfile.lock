@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/better-together-org/community-engine-rails.git
-  revision: 53e4df425aacb2647a08f1b08f2c037fed38f56b
+  revision: ba4eff7db622555f36e20e73fc30ff9b7abe221c
   branch: main
   specs:
     better_together (0.8.1)
@@ -481,7 +481,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
-    noticed (2.8.0)
+    noticed (2.8.1)
       rails (>= 6.1.0)
     optimist (3.2.1)
     orm_adapter (0.5.0)
@@ -589,7 +589,7 @@ GEM
       psych (>= 4.0.0)
     redis (5.4.1)
       redis-client (>= 0.22.0)
-    redis-client (0.25.1)
+    redis-client (0.25.2)
       connection_pool
     reform (2.6.2)
       disposable (>= 0.5.0, < 1.0.0)
@@ -699,9 +699,9 @@ GEM
     rubyzip (2.4.1)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
-    sass-embedded (1.92.0-aarch64-linux-gnu)
+    sass-embedded (1.92.1-aarch64-linux-gnu)
       google-protobuf (~> 4.31)
-    sass-embedded (1.92.0-x86_64-linux-gnu)
+    sass-embedded (1.92.1-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -724,7 +724,7 @@ GEM
       activesupport (>= 3)
     shoulda-matchers (6.5.0)
       activesupport (>= 5.2.0)
-    sidekiq (8.0.6)
+    sidekiq (8.0.7)
       connection_pool (>= 2.5.0)
       json (>= 2.9.0)
       logger (>= 1.6.2)

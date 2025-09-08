@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_03_201733) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_08_180243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -477,7 +477,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_03_201733) do
     t.string "privacy", limit: 50, default: "private", null: false
     t.datetime "starts_at"
     t.datetime "ends_at"
-    t.decimal "duration_minutes"
+    t.integer "duration_minutes"
     t.string "registration_url"
     t.index ["creator_id"], name: "by_better_together_events_creator"
     t.index ["ends_at"], name: "bt_events_by_ends_at"
@@ -742,7 +742,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_03_201733) do
     t.datetime "last_sent"
     t.datetime "accepted_at"
     t.string "locale", limit: 5, default: "en", null: false
-    t.string "token", limit: 24, null: false
+    t.string "token", limit: 64, null: false
     t.string "invitable_type", null: false
     t.uuid "invitable_id", null: false
     t.string "inviter_type", null: false
@@ -1129,7 +1129,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_03_201733) do
     t.uuid "platform_role_id"
     t.string "status", limit: 20, null: false
     t.string "locale", limit: 5, default: "en", null: false
-    t.string "token", limit: 24, null: false
+    t.string "token", limit: 64, null: false
     t.datetime "valid_from", null: false
     t.datetime "valid_until"
     t.datetime "last_sent"
