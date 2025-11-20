@@ -31,7 +31,7 @@ class Stage < ApplicationRecord
 
   belongs_to :seating_chart, class_name: 'BetterTogether::Upload', dependent: :destroy
 
-  translates :name
+  translates :name, type: :string
   translates :description, backend: :action_text
   translates :specs, backend: :action_text
 

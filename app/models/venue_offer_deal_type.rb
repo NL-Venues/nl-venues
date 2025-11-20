@@ -8,6 +8,6 @@ class VenueOfferDealType < ApplicationRecord
   belongs_to :deal_type
   belongs_to :venue_offer
 
-  translates :name
+  translates :name, type: :string
   translates :description, backend: :action_text
 end

@@ -7,6 +7,6 @@ class TicketSaleOption < ApplicationRecord
 
   slugged :name
 
-  translates :name
+  translates :name, type: :string
   translates :description, backend: :action_text
 end

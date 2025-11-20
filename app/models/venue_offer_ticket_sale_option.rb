@@ -8,6 +8,6 @@ class VenueOfferTicketSaleOption < ApplicationRecord
   belongs_to :ticket_sale_option
   belongs_to :venue_offer
 
-  translates :name
+  translates :name, type: :string
   translates :description, backend: :action_text
 end
