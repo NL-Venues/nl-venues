@@ -28,20 +28,20 @@ gem 'ostruct'
 # Database adapter for PostgreSQL
 gem 'pg', '>= 0.18', '< 2.0'
 # Puma as the app server
-gem 'puma', '~> 6.6'
+gem 'puma', '~> 7.1'
 
 # Pundit for authorization, custom fork for Better Together
 gem 'pundit-resources', '~> 1.1.4', github: 'better-together-org/pundit-resources'
 
 # Core Rails gem
 gem 'rack-protection'
-gem 'rails', '~> 7.2.2.2'
+gem 'rails', '~> 8.0.4'
 
 # Redis for ActionCable and background jobs
 gem 'redis', '~> 5.4'
 # Sidekiq for background processing
 
-gem 'sidekiq', '~> 8.0.6'
+gem 'sidekiq', '~> 8.0.9'
 
 # Error and performance monitoring with Sentry
 gem 'sentry-rails'
