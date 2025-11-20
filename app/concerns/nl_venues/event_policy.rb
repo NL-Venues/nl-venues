@@ -5,10 +5,8 @@ module NlVenues
   module EventPolicy
     extend ActiveSupport::Concern
 
-    included do
-      def create?
-        super || venue_access?
-      end
+    def create?
+      super || venue_access?
     end
 
     def venue_access?
