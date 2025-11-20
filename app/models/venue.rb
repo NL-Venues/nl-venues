@@ -49,7 +49,7 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   after_create :create_map, if: ->(obj) { obj.map.nil? }
   after_update :create_map, if: ->(obj) { obj.map.nil? }
 
-  translates :name
+  translates :name, type: :string
   translates :description, backend: :action_text
 
   slugged :name

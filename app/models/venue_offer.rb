@@ -21,7 +21,7 @@ class VenueOffer < ApplicationRecord
 
   belongs_to :stage, optional: true
 
-  translates :name
+  translates :name, type: :string
   translates :description, backend: :action_text
 
   def self.permitted_attributes(id: false, destroy: false)

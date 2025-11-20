@@ -6,7 +6,7 @@ class Artist < ApplicationRecord
   include BetterTogether::Identifier
   include BetterTogether::Privacy
 
-  translates :name
+  translates :name, type: :string
   translates :description, backend: :action_text
 
   slugged :name
