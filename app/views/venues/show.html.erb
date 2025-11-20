@@ -155,7 +155,7 @@
     </section>
   <% end %>
 
-	<% authorized_events = @venue.events.select { |event| policy(event).show? } %>
+	<% authorized_events = @venue.hosted_events.select { |event| policy(event).show? } %>
 	<% if authorized_events.any? %>
 		<h3><%= t('venues.events') %></h3>
 		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">

@@ -4,7 +4,7 @@
 class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include BetterTogether::Contactable
   include BetterTogether::Creatable
-  include BetterTogether::HostEvents
+  include BetterTogether::HostsEvents
   include BetterTogether::Identifier
   include BetterTogether::PrimaryCommunity
   include BetterTogether::Privacy
@@ -17,9 +17,6 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
            -> { order(:primary_flag, :position) }, dependent: :destroy
 
   has_many :buildings, through: :venue_buildings
-
-  has_many :event_hosts, as: :host, class_name: 'BetterTogether::EventHost'
-  has_many :events, through: :event_hosts
 
   has_many :venue_images,
            -> { order({ primary_flag: :desc }, { position: :asc }) }, dependent: :destroy
