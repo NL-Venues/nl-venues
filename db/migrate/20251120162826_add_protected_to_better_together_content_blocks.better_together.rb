@@ -4,6 +4,8 @@
 # Adds protected column to prevent deletion of platform-critical blocks
 class AddProtectedToBetterTogetherContentBlocks < ActiveRecord::Migration[7.2]
   def change
-    change_table :better_together_content_blocks, bulk: true, &:bt_protected
+    return if column_exists?(:better_together_content_blocks, :protected)
+
+    change_table :better_together_content_blocks, &:bt_protected
   end
 end
