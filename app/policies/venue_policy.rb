@@ -27,6 +27,10 @@ class VenuePolicy < ApplicationPolicy
     permitted_to?('manage_platform')
   end
 
+  def create_event?
+    update?
+  end
+
   # Sorts the Venues by their name asc and only show public records unless platform manager
   class Scope < ApplicationPolicy::Scope
     def resolve
