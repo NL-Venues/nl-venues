@@ -40,6 +40,7 @@ RSpec.configure do |config|
 
   config.include Warden::Test::Helpers
   config.after { Warden.test_reset! }
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = ["#{Rails.root}/spec/fixtures"]
 
@@ -49,6 +50,9 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 
   config.before(:suite) do
+    # Configure ActiveJob to use test adapter for job enqueuing matchers
+    ActiveJob::Base.queue_adapter = :test
+
     DatabaseCleaner.clean_with(:truncation, except: %w[spatial_ref_sys])
 
     load BetterTogether::Engine.root.join('db', 'seeds.rb')
