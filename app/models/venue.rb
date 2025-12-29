@@ -6,6 +6,7 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   include BetterTogether::Creatable
   include BetterTogether::HostsEvents
   include BetterTogether::Identifier
+  include BetterTogether::Metrics::Viewable
   include BetterTogether::PrimaryCommunity
   include BetterTogether::Privacy
   include BetterTogether::Searchable
