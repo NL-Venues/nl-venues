@@ -30,7 +30,7 @@ if defined?(AssetSync)
     # config.include_manifest = false
     # config.remote_file_list_cache_file_path = './.asset_sync_remote_file_list_cache.json'
     # config.remote_file_list_remote_path = '/remote/asset_sync_remote_file.json'
-    # config.fail_silently = true
+    config.fail_silently = ENV['ASSET_SYNC_FAIL_SILENTLY'] == 'true'
     config.log_silently = true
     config.concurrent_uploads = true
   end

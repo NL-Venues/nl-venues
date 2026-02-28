@@ -58,9 +58,13 @@ RUN bundle config set without 'development test' \
 
 COPY . .
 
-# Precompile assets without S3 sync
-ENV ASSET_SYNC_ENABLED=false
-RUN bundle exec rake assets:precompile
+# Precompile assets; ASSET_SYNC_FAIL_SILENTLY=true silences S3 sync errors at build time
+# Dummy AWS/fog creds satisfy config validation; no actual sync occurs without valid credentials
+RUN ASSET_SYNC_FAIL_SILENTLY=true \
+    AWS_ACCESS_KEY_ID=build-dummy \
+    AWS_SECRET_ACCESS_KEY=build-dummy \
+    FOG_DIRECTORY=build-dummy \
+    bundle exec rake assets:precompile
 
 # Stage 3: Runtime environment
 FROM ruby:3.4.4 AS app-host
