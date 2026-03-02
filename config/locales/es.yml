@@ -1,10 +1,10 @@
 ---
 es:
   globals:
-    attached_file: "Archivo adjunto"
-    download: "Descargar"
-    no_publish_date: "Sin fecha de publicación"
-    no_author: "Sin autor"
+    attached_file: Archivo adjunto
+    download: Descargar
+    no_author: Sin autor
+    no_publish_date: Sin fecha de publicación
   helpers:
     select:
       prompt: Por favor seleccione
@@ -17,7 +17,7 @@ es:
     am: am
     formats:
       date_picker: "%d/%m/%Y"
-      datetime_picker: "%d/%m/%Y %H:%M" # 24-hour format
+      datetime_picker: "%d/%m/%Y %H:%M"
     pm: pm
   venues:
     events: Eventos

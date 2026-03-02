@@ -6,16 +6,18 @@ en:
     navigation_items:
       route_names:
         artists: Artists
-        deal_types: "Deal Types"
-        ticket_sale_options: "Ticket Sale Options"
+        deal_types: Deal Types
+        ticket_sale_options: Ticket Sale Options
         tours: Tours
-        venues: "Venues"
+        venues: Venues
   globals:
-    attached_file: "Attached file"
-    download: "Download"
-    no_publish_date: "No publish date"
-    no_author: "No author"
+    attached_file: Attached file
+    download: Download
+    no_author: No author
+    no_publish_date: No publish date
   helpers:
+    errors:
+      heading: 'Please correct the following errors:'
     select:
       prompt: Please select
     submit:
@@ -23,34 +25,32 @@ en:
       submit: Save %{model}
       update: Update %{model}
     toolbar:
-      aria_label: "Toolbar with button groups"
-    errors:
-      heading: "Please correct the following errors:"
+      aria_label: Toolbar with button groups
   hints:
   time:
     am: am
     formats:
       date_picker: "%m/%d/%Y"
-      datetime_picker: "%m/%d/%Y %I:%M %p" # 12-hour format with AM/PM
+      datetime_picker: "%m/%d/%Y %I:%M %p"
       tour: "%B %d, %Y @ %-I:%M %p"
   tours:
     save_tour: Save Tour
   venues:
-    back_to_venues: "Back to Venues"
-    confirm_destroy: 'Are you sure you want to remove this Venue?'
+    back_to_venues: Back to Venues
+    confirm_destroy: Are you sure you want to remove this Venue?
     create_event: Create Event
     events: Events
-    save_venue: "Save Venue"
-    tabs:
-      details: "Details"
-      buildings: "Buildings"
-      images: "Images"
-      contacts: "Contacts"
-      stages: "Stages"
-      offers: "Offers"
     hints:
-      name: "Enter the venue name."
-      slug: "Enter the venue username."
-      description: "Enter a description for the venue."
+      description: Enter a description for the venue.
+      name: Enter the venue name.
+      slug: Enter the venue username.
     labels:
-      privacy: "Privacy"
+      privacy: Privacy
+    save_venue: Save Venue
+    tabs:
+      buildings: Buildings
+      contacts: Contacts
+      details: Details
+      images: Images
+      offers: Offers
+      stages: Stages
