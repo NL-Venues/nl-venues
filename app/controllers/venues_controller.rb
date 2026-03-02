@@ -17,4 +17,8 @@ class VenuesController < BetterTogether::FriendlyResourceController
   def resource_class
     Venue
   end
+
+  def resource_collection
+    super.includes(venue_images: { image: { media_attachment: :blob } })
+  end
 end
