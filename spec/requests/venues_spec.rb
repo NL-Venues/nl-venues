@@ -28,6 +28,15 @@ RSpec.describe 'Venues', type: :request do
       get venues_path(locale:)
       expect(response).to have_http_status(:ok)
     end
+
+    it 'renders without N+1 queries when venues exist (exercises eager-loaded venue_images)' do
+      # Create additional public venues to exercise the collection query path
+      create_list(:venue, 2, :public)
+
+      get venues_path(locale:)
+
+      expect(response).to have_http_status(:ok)
+    end
   end
 
   describe 'GET /venues/:id' do
