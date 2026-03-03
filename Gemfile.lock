@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/better-together-org/community-engine-rails.git
-  revision: ae37edb9ab71cf6db0771087a09d8a54ba02a055
-  branch: main
+  revision: 4369f5d36474aaa593f354ea57f8b323ece3ec2b
+  branch: fix/pages-controller-sti-string-translations
   specs:
     better_together (0.10.0)
       active_storage_svg_sanitizer
