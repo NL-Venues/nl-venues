@@ -38,6 +38,7 @@ class EnhanceReportsForRestorativeSafety < ActiveRecord::Migration[7.1]
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def backfill_existing_reports!
     execute <<~SQL.squish
       UPDATE better_together_reports
@@ -51,6 +52,7 @@ class EnhanceReportsForRestorativeSafety < ActiveRecord::Migration[7.1]
         OR requested_outcome IS NULL
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
   def enforce_required_fields!
     change_column_null :better_together_reports, :category, false
