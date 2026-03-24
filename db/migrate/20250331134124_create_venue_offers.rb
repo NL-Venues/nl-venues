@@ -2,7 +2,7 @@
 
 # Creates the venue_offers table, which stores information about offers made by venues.
 class CreateVenueOffers < ActiveRecord::Migration[7.1]
-  def change # rubocop:todo Metrics/MethodLength
+  def change
     create_bt_table :venue_offers, prefix: nil do |t|
       t.bt_creator
       t.bt_identifier

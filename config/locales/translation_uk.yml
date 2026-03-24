@@ -1,0 +1,89 @@
+uk:
+  activerecord:
+    models:
+      venue: Майданчик
+      stage: Сцена
+      venue_offer: Пропозиція майданчика
+
+    attributes:
+      better_together:
+        common:
+          primary_flag: Основний
+          privacy: Конфіденційність
+          identifier: Ідентифікатор
+          position: Позиція
+          protected: Захищений
+          host: Господар
+          name: Назва
+          description: Опис
+          slug: Слаг
+          visible: Видимий
+          locale: Мова
+          creator: Автор
+          community: Спільнота
+
+      venue:
+        identifier: :activerecord.attributes.better_together.common.identifier
+        privacy: :activerecord.attributes.better_together.common.privacy
+        community: :activerecord.attributes.better_together.common.community
+        creator: :activerecord.attributes.better_together.common.creator
+
+      stage:
+        identifier: :activerecord.attributes.better_together.common.identifier
+        privacy: :activerecord.attributes.better_together.common.privacy
+        primary_flag: :activerecord.attributes.better_together.common.primary_flag
+        capacity: Місткість
+        equipment_list: Список обладнання
+        accessible: Доступний
+        lighting_tech: Освітлювальна техніка
+        sound_tech: Звукова техніка
+        venue_id: Майданчик
+        tech_specs_id: Технічні специфікації
+        stage_plot_id: План сцени
+        seating_chart_id: Схема розміщення
+
+      venue_offer:
+        identifier: :activerecord.attributes.better_together.common.identifier
+        privacy: :activerecord.attributes.better_together.common.privacy
+        primary_flag: :activerecord.attributes.better_together.common.primary_flag
+        accommodations_provided: Надається проживання
+        accomodations_notes: Примітки щодо проживання
+        box_office: Каса
+        financial_notes: Фінансові примітки
+        marketing_support: Маркетингова підтримка
+        venue_id: Майданчик
+        stage_id: Сцена
+        deal_type_ids: Типи угод
+        ticket_sale_option_ids: Варіанти продажу квитків
+
+      better_together/contact_detail:
+        name: Назва
+        role: Роль
+
+  placeholders:
+    stage:
+      identifier: (необов'язково)
+
+  hints:
+    stage:
+      identifier: Введіть унікальний ідентифікатор для сцени. Не повинен містити пробілів і має бути менше 100 символів.
+      capacity: Вкажіть максимальну місткість сцени.
+      equipment_list: Перелічіть обладнання, доступне на сцені.
+      tech_specs_id: Завантажте технічні специфікації для сцени.
+      stage_plot_id: Завантажте файл плану сцени.
+      seating_chart_id: Завантажте файл схеми розміщення.
+      accessible: Вкажіть, чи є сцена доступною для людей з інвалідністю.
+      lighting_tech: Вкажіть, чи є доступна освітлювальна техніка для сцени.
+      sound_tech: Вкажіть, чи є доступна звукова техніка для сцени.
+
+    venue_offer:
+      accommodations_provided: Вкажіть, чи надається проживання як частина пропозиції.
+      accomodations_notes: Надайте додаткову інформацію про проживання.
+      financial_notes: Додайте будь-які фінансові примітки або міркування щодо пропозиції.
+      marketing_support: Вкажіть, чи доступна маркетингова підтримка для пропозиції.
+      deal_type_ids: Оберіть один або кілька типів угод, що застосовуються до цієї пропозиції майданчика.
+      ticket_sale_option_ids: Оберіть один або кілька варіантів продажу квитків, доступних для цієї пропозиції майданчика.
+
+    better_together/contact_detail:
+      name: Введіть ім'я контактної особи.
+      role: Вкажіть роль контактної особи.

@@ -2,7 +2,7 @@
 
 # Create the stages table
 class CreateStages < ActiveRecord::Migration[7.1]
-  def change # rubocop:todo Metrics/MethodLength
+  def change
     create_bt_table :stages, prefix: nil do |t|
       t.bt_creator
       t.bt_identifier
