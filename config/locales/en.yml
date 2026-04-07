@@ -26,7 +26,6 @@ en:
       update: Update %{model}
     toolbar:
       aria_label: Toolbar with button groups
-  hints:
   time:
     am: am
     formats:

@@ -1,0 +1,30 @@
+---
+uk:
+  artists:
+    save_artist: Зберегти артиста
+  globals:
+    attached_file: Прикріплений файл
+    download: Завантажити
+    no_author: Немає автора
+    no_publish_date: Немає дати публікації
+  tours:
+    save_tour: Зберегти тур
+  venues:
+    back_to_venues: Назад до місць
+    confirm_destroy: Ви впевнені, що хочете видалити це місце?
+    create_event: Створити подію
+    events: Події
+    hints:
+      description: Введіть опис для місця.
+      name: Введіть назву місця.
+      slug: Введіть ім'я користувача місця.
+    labels:
+      privacy: Конфіденційність
+    save_venue: Зберегти місце
+    tabs:
+      buildings: Будівлі
+      contacts: Контакти
+      details: Деталі
+      images: Зображення
+      offers: Пропозиції
+      stages: Сцени
