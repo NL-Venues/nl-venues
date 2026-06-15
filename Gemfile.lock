@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/better-together-org/community-engine-rails.git
-  revision: 39061274b1779074a12f12f70534f1e86654995c
+  revision: 15471e6b1ca3181b3c7b616b0117c4ac20c1fc4c
   branch: main
   specs:
-    better_together (0.10.0)
+    better_together (0.10.1)
       active_storage_svg_sanitizer
       active_storage_validations
       activerecord-import
@@ -15,8 +15,8 @@ GIT
       devise-jwt
       devise_zxcvbn
       doorkeeper (>= 5.7, < 6.0)
-      elasticsearch-model (~> 7)
-      elasticsearch-rails (~> 7)
+      elasticsearch-model (~> 8)
+      elasticsearch-rails (~> 8)
       fast-mcp (>= 1.6.0)
       font-awesome-sass (~> 6.5)
       friendly_id (>= 5.2, < 5.6)
@@ -27,7 +27,7 @@ GIT
       i18n-timezones
       icalendar (~> 2.10)
       ice_cube (~> 0.16)
-      image_processing (~> 1.2)
+      image_processing (>= 1.2, < 3.0)
       importmap-rails (~> 2.0)
       jsonapi-resources (>= 0.10.0)
       kaminari
@@ -39,6 +39,7 @@ GIT
       omniauth
       omniauth-github (~> 2.0.0)
       omniauth-rails_csrf_protection
+      pg_search
       premailer-rails
       public_activity
       pundit (>= 2.1, < 2.6)
@@ -46,11 +47,11 @@ GIT
       rack-attack
       rack-cors (>= 1.1.1, < 3.1.0)
       rack-mini-profiler
-      rails (>= 7.2, < 8.1)
+      rails (>= 7.2, < 8.2)
       redcarpet (~> 3.6)
       reform-rails (>= 0.2, < 0.4)
       rswag (>= 2.3.1, < 2.18.0)
-      ruby-openai
+      ruby_llm
       sidekiq-scheduler
       simple_calendar
       sitemap_generator
@@ -127,7 +128,7 @@ GEM
       rails-html-sanitizer (~> 1.6)
     active_storage_svg_sanitizer (0.1.0)
       rails (>= 5.2)
-    active_storage_validations (3.0.3)
+    active_storage_validations (3.0.5)
       activejob (>= 6.1.4)
       activemodel (>= 6.1.4)
       activestorage (>= 6.1.4)
@@ -175,6 +176,8 @@ GEM
       mime-types (>= 2.99)
       unf
     ast (2.4.3)
+    auth-sanitizer (0.2.1)
+      version_gem (~> 1.1, >= 1.1.10)
     aws-eventstream (1.4.0)
     aws-partitions (1.1245.0)
     aws-sdk-core (3.246.0)
@@ -247,8 +250,9 @@ GEM
       thor (~> 1.2)
       tins (~> 1.32)
     crass (1.0.6)
-    css_parser (2.1.0)
+    css_parser (3.0.0)
       addressable
+      ssrf_filter (~> 1.5)
     csv (3.3.5)
     dartsass-sprockets (3.2.1)
       railties (>= 4.0.0)
@@ -287,14 +291,14 @@ GEM
       declarative (>= 0.0.9, < 1.0.0)
       representable (>= 3.1.1, < 4)
     docile (1.4.0)
-    doorkeeper (5.9.0)
+    doorkeeper (5.9.2)
       railties (>= 5)
     drb (2.2.3)
-    dry-auto_inject (1.1.0)
+    dry-auto_inject (1.2.1)
       dry-core (~> 1.1)
       zeitwerk (~> 2.6)
-    dry-configurable (1.3.0)
-      dry-core (~> 1.1)
+    dry-configurable (1.4.0)
+      dry-core (~> 1.0)
       zeitwerk (~> 2.6)
     dry-core (1.2.0)
       concurrent-ruby (~> 1.0)
@@ -325,20 +329,20 @@ GEM
     easy_translate (0.5.1)
       thread
       thread_safe
-    elasticsearch (7.17.11)
-      elasticsearch-api (= 7.17.11)
-      elasticsearch-transport (= 7.17.11)
-    elasticsearch-api (7.17.11)
+    elastic-transport (8.5.2)
+      faraday (< 3)
       multi_json
-    elasticsearch-model (7.2.1)
+    elasticsearch (8.19.3)
+      elastic-transport (~> 8.3)
+      elasticsearch-api (= 8.19.3)
+      ostruct
+    elasticsearch-api (8.19.3)
+      multi_json
+    elasticsearch-model (8.0.1)
       activesupport (> 3)
-      elasticsearch (~> 7)
+      elasticsearch (~> 8)
       hashie
-    elasticsearch-rails (7.2.1)
-    elasticsearch-transport (7.17.11)
-      base64
-      faraday (>= 1, < 3)
-      multi_json
+    elasticsearch-rails (8.0.1)
     erb (6.0.4)
     erubi (1.13.1)
     et-orbi (1.4.0)
@@ -362,6 +366,8 @@ GEM
       multipart-post (~> 2.0)
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
+    faraday-retry (2.4.0)
+      faraday (~> 2.0)
     fast-mcp (1.6.0)
       addressable (~> 2.8)
       base64
@@ -369,8 +375,8 @@ GEM
       json (~> 2.0)
       mime-types (~> 3.4)
       rack (>= 2.0, < 4.0)
-    ffi (1.17.3-aarch64-linux-gnu)
-    ffi (1.17.3-x86_64-linux-gnu)
+    ffi (1.17.4-aarch64-linux-gnu)
+    ffi (1.17.4-x86_64-linux-gnu)
     fog-aws (3.33.2)
       base64 (>= 0.2, < 0.4)
       fog-core (~> 2.6)
@@ -396,7 +402,7 @@ GEM
     friendly_id-mobility (1.0.5)
       friendly_id (>= 5.0.0, < 5.6)
       mobility (>= 1.0.1, < 2.0)
-    fugit (1.12.1)
+    fugit (1.12.2)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
     fuubar (2.5.1)
@@ -407,14 +413,14 @@ GEM
       csv (>= 3.0.0)
     globalid (1.3.0)
       activesupport (>= 6.1)
-    google-protobuf (4.34.0-aarch64-linux-gnu)
+    google-protobuf (4.35.1-aarch64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.34.0-x86_64-linux-gnu)
+    google-protobuf (4.35.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
-    groupdate (6.7.0)
-      activesupport (>= 7.1)
+    groupdate (6.8.0)
+      activesupport (>= 7.2)
     hashie (5.1.0)
       logger
     highline (3.1.2)
@@ -445,16 +451,14 @@ GEM
     i18n_generators (2.2.2)
       activerecord (>= 3.0.0)
       railties (>= 3.0.0)
-    icalendar (2.12.2)
+    icalendar (2.12.3)
       base64
       ice_cube (~> 0.16)
       logger
       ostruct
     ice_cube (0.17.0)
     ice_nine (0.11.2)
-    image_processing (1.14.0)
-      mini_magick (>= 4.9.5, < 6)
-      ruby-vips (>= 2.0.17, < 3)
+    image_processing (2.0.2)
     importmap-rails (2.2.3)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -508,7 +512,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.1.0)
+    marcel (1.2.1)
     matrix (0.4.3)
     memory_profiler (1.1.0)
     method_source (1.1.0)
@@ -516,8 +520,6 @@ GEM
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
     mime-types-data (3.2026.0414)
-    mini_magick (5.3.1)
-      logger
     mini_mime (1.1.5)
     minitest (6.0.6)
       drb (~> 2.0)
@@ -529,8 +531,8 @@ GEM
       actiontext (>= 6.0)
       mobility (~> 1.2)
     msgpack (1.8.0)
-    multi_json (1.20.1)
-    multi_xml (0.8.1)
+    multi_json (1.21.1)
+    multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     multipart-post (2.4.1)
     net-http (0.9.1)
@@ -551,14 +553,15 @@ GEM
       racc (~> 1.4)
     noticed (3.0.0)
       rails (>= 6.1.0)
-    oauth2 (2.0.18)
+    oauth2 (2.0.23)
+      auth-sanitizer (~> 0.2, >= 0.2.1)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
-      snaky_hash (~> 2.0, >= 2.0.3)
-      version_gem (~> 1.1, >= 1.1.9)
+      snaky_hash (~> 2.0, >= 2.0.6)
+      version_gem (~> 1.1, >= 1.1.11)
     octokit (10.0.0)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
@@ -585,6 +588,9 @@ GEM
       racc
     pg (1.6.3-aarch64-linux)
     pg (1.6.3-x86_64-linux)
+    pg_search (2.3.7)
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
     popper_js (2.11.8)
     pp (0.6.3)
       prettyprint
@@ -602,7 +608,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
       reline (>= 0.6.0)
-    psych (5.3.1)
+    psych (5.4.0)
       date
       stringio
     public_activity (3.0.2)
@@ -686,7 +692,7 @@ GEM
     redcarpet (3.6.1)
     redis (5.4.1)
       redis-client (>= 0.22.0)
-    redis-client (0.29.0)
+    redis-client (0.30.0)
       connection_pool
     reform (2.6.2)
       disposable (>= 0.5.0, < 1.0.0)
@@ -784,24 +790,28 @@ GEM
       lint_roller (~> 1.1)
       rubocop (~> 1.72, >= 1.72.1)
       rubocop-rspec (~> 3.5)
-    ruby-openai (8.3.0)
-      event_stream_parser (>= 0.3.0, < 2.0.0)
-      faraday (>= 1)
-      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
-    ruby-vips (2.3.0)
-      ffi (~> 1.12)
-      logger
+    ruby_llm (1.16.0)
+      base64
+      event_stream_parser (~> 1)
+      faraday (>= 1.10.0)
+      faraday-multipart (>= 1)
+      faraday-net_http (>= 1)
+      faraday-retry (>= 1)
+      marcel (~> 1)
+      ruby_llm-schema (~> 0)
+      zeitwerk (~> 2)
+    ruby_llm-schema (0.4.0)
     rubyzip (3.3.0)
     rufus-scheduler (3.9.2)
       fugit (~> 1.1, >= 1.11.1)
-    sass-embedded (1.98.0-aarch64-linux-gnu)
+    sass-embedded (1.101.0-aarch64-linux-gnu)
       google-protobuf (~> 4.31)
-    sass-embedded (1.98.0-x86_64-linux-gnu)
+    sass-embedded (1.101.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sassc-embedded (1.80.8)
+    sassc-embedded (1.80.9)
       sass-embedded (~> 1.80)
     sawyer (0.9.3)
       addressable (>= 2.3.5)
@@ -830,7 +840,7 @@ GEM
       logger (>= 1.7.0)
       rack (>= 3.2.0)
       redis-client (>= 0.29.0)
-    sidekiq-scheduler (6.0.1)
+    sidekiq-scheduler (6.0.2)
       rufus-scheduler (~> 3.2)
       sidekiq (>= 7.3, < 9)
     simple_calendar (3.1.0)
@@ -841,9 +851,9 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    sitemap_generator (6.3.0)
+    sitemap_generator (7.0.1)
       builder (~> 3.0)
-    snaky_hash (2.0.3)
+    snaky_hash (2.0.6)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
     spring (4.5.0)
@@ -858,6 +868,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
+    ssrf_filter (1.5.0)
     stackprof (0.2.28)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
@@ -893,7 +904,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
-    version_gem (1.1.9)
+    version_gem (1.1.11)
     virtus (2.0.0)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -910,13 +921,13 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 8.0.0)
     websocket (1.2.11)
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.1)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.2)
     zxcvbn (0.1.13)
 
 PLATFORMS
