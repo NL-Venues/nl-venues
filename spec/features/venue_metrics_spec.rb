@@ -8,7 +8,8 @@ RSpec.describe 'Venue Metrics', type: :request do
 
   before do
     # Configure host platform
-    create(:better_together_platform, :host, privacy: 'public')
+    BetterTogether::Platform.find_by(host: true)&.update!(privacy: 'public') ||
+      create(:better_together_platform, :host, privacy: 'public')
     wizard = BetterTogether::Wizard.find_or_create_by(identifier: 'host_setup')
     wizard.mark_completed
   end

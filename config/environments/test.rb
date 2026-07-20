@@ -64,8 +64,27 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Allows unencrypted values to be store in encrypted columns for transitioning
+  config.active_record.encryption.primary_key =
+    ENV.fetch('ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY', '12345678901234567890123456789012')
+  config.active_record.encryption.deterministic_key =
+    ENV.fetch('ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY', '12345678901234567890123456789012')
+  config.active_record.encryption.key_derivation_salt =
+    ENV.fetch('ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT', '12345678901234567890123456789012')
   config.active_record.encryption.support_unencrypted_data = true
   config.active_record.encryption.extend_queries = true
+
+  config.after_initialize do
+    test_url_options = { host: 'www.example.com', protocol: 'http' }
+
+    BetterTogether.base_url = 'http://www.example.com'
+    config.default_url_options = test_url_options
+    config.action_controller.default_url_options = test_url_options
+    config.action_mailer.default_url_options = test_url_options
+    BetterTogether::Engine.routes.default_url_options =
+      BetterTogether::Engine.routes.default_url_options.merge(test_url_options)
+    Rails.application.routes.default_url_options =
+      Rails.application.routes.default_url_options.merge(test_url_options)
+  end
 
   if defined?(FactoryBot)
     config.to_prepare do

@@ -6,7 +6,12 @@ module DeviseSessionHelpers
   include BetterTogether::Engine.routes.url_helpers
 
   def configure_host_platform
-    host_platform = create(:better_together_platform, :host, privacy: 'public')
+    host_platform = BetterTogether::Platform.find_by(host: true)
+    if host_platform
+      host_platform.update!(privacy: 'public', host_url: 'http://www.example.com')
+    else
+      host_platform = create(:better_together_platform, :host, privacy: 'public', host_url: 'http://www.example.com')
+    end
     wizard = BetterTogether::Wizard.find_or_create_by(identifier: 'host_setup')
     wizard.mark_completed
     host_platform
