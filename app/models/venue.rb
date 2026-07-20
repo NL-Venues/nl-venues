@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # A place where entertainment performances are held
-class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
+class Venue < ApplicationRecord
   include BetterTogether::Contactable
   include BetterTogether::Creatable
   include BetterTogether::HostsEvents
@@ -55,14 +55,6 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   slugged :name
 
-  settings index: default_elasticsearch_index do
-    mappings dynamic: 'false' do
-      indexes :name, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 3
-      indexes :description, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 2
-      indexes :formatted_address, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 2
-    end
-  end
-
   def self.permitted_attributes(id: false, destroy: false)
     [
       stages_attributes: Stage.permitted_attributes(id: true, destroy: true),
@@ -74,16 +66,6 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
                                                                                                               destroy: true)
       # rubocop:enable Layout/LineLength
     ] + super
-  end
-
-  # Customize the data sent to Elasticsearch for indexing
-  def as_indexed_json(_options = {})
-    as_json(
-      only: [:id],
-      methods: [:name, :slug, :formatted_address, *self.class.localized_attribute_list.keep_if do |a|
-        a.starts_with?('name') || a.starts_with?('description')
-      end]
-    )
   end
 
   def create_venue_map
