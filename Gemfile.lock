@@ -987,7 +987,7 @@ DEPENDENCIES
   sentry-ruby
   shoulda-callback-matchers
   shoulda-matchers
-  sidekiq (~> 8.1.5)
+  sidekiq (~> 8.1.6)
   simplecov
   spring
   spring-watcher-listen (~> 2.1.0)
