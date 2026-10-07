@@ -683,7 +683,7 @@ GEM
       logger
       prism (>= 1.6.0)
       tsort
-    rbtrace (0.5.3)
+    rbtrace (0.5.4)
       ffi (>= 1.0.6)
       msgpack (>= 0.4.3)
       optimist (>= 3.0.0)
