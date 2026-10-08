@@ -5,6 +5,8 @@ AllCops:
     - 'bin/*'
     - 'node_modules/**/*'
     - 'db/schema.rb'
+    # Copied verbatim from the better_together engine by install:migrations; fixes belong upstream.
+    - 'db/migrate/*.better_together.rb'
     - 'vendor/**/*'
   NewCops: enable
 Style/StringLiterals:
