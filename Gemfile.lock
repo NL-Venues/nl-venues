@@ -63,13 +63,13 @@ GIT
 
 GIT
   remote: https://github.com/better-together-org/pundit-resources.git
-  revision: 4e50d1f97a1e7c864bc45e2613b763ecf8f079ce
+  revision: 99c4f97db159c8cff48e961eb20d2fe8dd160ce1
   specs:
     pundit-resources (1.1.6)
       activesupport
       jsonapi-resources
       pundit
-      rails (>= 4.2.1, < 8.1)
+      rails (>= 4.2.1, < 8.2)
 
 GIT
   remote: https://github.com/better-together-org/storext.git
@@ -209,7 +209,7 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
-    bigdecimal (4.1.2)
+    bigdecimal (4.1.3)
     bindex (0.8.1)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
@@ -464,7 +464,7 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.9.2)
+    io-console (0.9.4)
     irb (1.18.0)
       pp (>= 0.6.0)
       prism (>= 1.3.0)
@@ -541,14 +541,14 @@ GEM
     multipart-post (2.4.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.6)
+    net-imap (0.6.7)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.2)
+    net-protocol (0.4.0)
       timeout
-    net-smtp (0.5.1)
+    net-smtp (0.5.2)
       net-protocol
     nio4r (2.7.5)
     nokogiri (1.19.4-aarch64-linux-gnu)
@@ -680,7 +680,7 @@ GEM
     rb-inotify (0.11.1)
       ffi (~> 1.0)
     rb-readline (0.5.5)
-    rbs (4.1.3)
+    rbs (4.2.0)
       logger
       prism (>= 1.6.0)
       tsort
@@ -688,7 +688,7 @@ GEM
       ffi (>= 1.0.6)
       msgpack (>= 0.4.3)
       optimist (>= 3.0.0)
-    rdoc (8.0.0)
+    rdoc (8.1.0)
       erb
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
@@ -966,7 +966,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry
   puma (~> 8.0)
-  pundit-resources (~> 1.1.4)!
+  pundit-resources (~> 1.1.6)!
   rack-mini-profiler
   rack-protection
   rails (~> 8.0.4)
