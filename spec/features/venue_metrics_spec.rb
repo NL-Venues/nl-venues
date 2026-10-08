@@ -8,7 +8,14 @@ RSpec.describe 'Venue Metrics', type: :request do
 
   before do
     # Configure host platform
-    create(:better_together_platform, :host, privacy: 'public')
+    host = BetterTogether::Platform.find_by(host: true)
+    if host
+      # Auto-created host platform and community cap each other's privacy; set both directly.
+      host.community&.update_columns(privacy: 'public')
+      host.update_columns(privacy: 'public')
+    else
+      create(:better_together_platform, :host, privacy: 'public')
+    end
     wizard = BetterTogether::Wizard.find_or_create_by(identifier: 'host_setup')
     wizard.mark_completed
   end
@@ -25,7 +32,7 @@ RSpec.describe 'Venue Metrics', type: :request do
                locale: locale.to_s
              },
              as: :json
-      end.to have_enqueued_job(BetterTogether::Metrics::TrackPageViewJob).with(venue, locale.to_s)
+      end.to have_enqueued_job(BetterTogether::Metrics::TrackPageViewJob).with(venue, locale.to_s, anything, anything)
 
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)).to eq({ 'success' => true })
