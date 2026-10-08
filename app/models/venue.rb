@@ -55,12 +55,34 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   slugged :name
 
-  settings index: default_elasticsearch_index do
-    mappings dynamic: 'false' do
-      indexes :name, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 3
-      indexes :description, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 2
-      indexes :formatted_address, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 2
-    end
+  has_many :building_addresses, through: :buildings, source: :address, class_name: 'BetterTogether::Address'
+
+  # Weights mirror the old ES boosts: name > description and address.
+  searchable pg_search: {
+    against: { identifier: 'D' },
+    associated_against: {
+      string_translations: { value: 'A' },
+      rich_text_translations: { body: 'C' },
+      building_addresses: { line1: 'B', city_name: 'B', state_province_name: 'C' }
+    },
+    using: {
+      tsearch: { prefix: true, dictionary: 'simple' },
+      trigram: { only: [:identifier], threshold: 0.3 }
+    },
+    ranked_by: ':tsearch + :trigram'
+  }
+
+  # CE's PgSearchBackend reads pg_search_rank but never selects it, so scores
+  # tie at 0.0; select the rank here so weighting and trigram boosts apply.
+  def self.search_backend_query(query)
+    super.with_pg_search_rank
+  end
+
+  # Venues are public by design while their primary community is a private
+  # placeholder (primary_community_extra_attrs), so CE's privacy ceiling
+  # would reject every public venue; visibility is governed by policy.
+  def privacy_ceiling_exempt?
+    true
   end
 
   def self.permitted_attributes(id: false, destroy: false)
@@ -74,16 +96,6 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
                                                                                                               destroy: true)
       # rubocop:enable Layout/LineLength
     ] + super
-  end
-
-  # Customize the data sent to Elasticsearch for indexing
-  def as_indexed_json(_options = {})
-    as_json(
-      only: [:id],
-      methods: [:name, :slug, :formatted_address, *self.class.localized_attribute_list.keep_if do |a|
-        a.starts_with?('name') || a.starts_with?('description')
-      end]
-    )
   end
 
   def create_venue_map
