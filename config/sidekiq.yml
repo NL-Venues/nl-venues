@@ -12,6 +12,8 @@ development:
     - [metrics, 3]   # Metrics queue with priority 3 (lower priority)
     - [notifications, 3]   # Notifications queue with priority 3 (lower priority)
     - [platform_sync, 3]   # Federation platform sync queue
+    - [low_priority, 3]   # Low priority work (boundary imports, notification cache warming)
+    - [webhooks, 3]   # Outbound webhook delivery
 
 test:
   <<: *default
@@ -23,6 +25,8 @@ test:
     - [metrics, 3]   # Metrics queue with priority 3 (lower priority)
     - [notifications, 3]   # Notifications queue with priority 3 (lower priority)
     - [platform_sync, 3]   # Federation platform sync queue
+    - [low_priority, 3]   # Low priority work (boundary imports, notification cache warming)
+    - [webhooks, 3]   # Outbound webhook delivery
 
 production:
   <<: *default
@@ -34,3 +38,5 @@ production:
     - [nl_venues_production_metrics, 3]   # Metrics queue with priority 3 (lower priority)
     - [nl_venues_production_notifications, 3]   # Notifications queue with priority 3 (lower priority)
     - [nl_venues_production_platform_sync, 3]   # Federation platform sync queue
+    - [nl_venues_production_low_priority, 3]   # Low priority work (boundary imports, notification cache warming)
+    - [nl_venues_production_webhooks, 3]   # Outbound webhook delivery
