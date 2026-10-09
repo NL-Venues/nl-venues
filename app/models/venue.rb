@@ -47,6 +47,7 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   delegate :person_community_memberships, :person_community_memberships_attributes=, to: :community
 
+  after_update :sync_image_privacy, if: :saved_change_to_privacy?
   after_create :create_map, if: ->(obj) { obj.map.nil? }
   after_update :create_map, if: ->(obj) { obj.map.nil? }
 
@@ -164,5 +165,13 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def to_s
     name
+  end
+
+  private
+
+  # Venue images show to the same people as the venue, so a privacy change applies to all of them.
+  def sync_image_privacy
+    BetterTogether::Content::Image.where(id: venue_images.select(:image_id))
+                                  .update_all(privacy:, updated_at: Time.current)
   end
 end
