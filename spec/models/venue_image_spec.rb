@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe VenueImage, type: :model do
+  let(:venue) { create(:venue) }
   let(:image) { create(:better_together_content_image, privacy: 'private') }
 
   def attach(venue, block = create(:better_together_content_image, privacy: 'private'))
@@ -19,7 +20,6 @@ RSpec.describe VenueImage, type: :model do
   end
 
   it 'applies a venue privacy change to all its images', :aggregate_failures do
-    venue = create(:venue)
     blocks = Array.new(2) { attach(venue) }
     %w[public private].each do |privacy|
       venue.update!(privacy:)
