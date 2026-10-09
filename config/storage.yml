@@ -7,12 +7,15 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
+# Also serves blobs recorded with service_name 'amazon' when S3_ENDPOINT points at an S3-compatible store.
 amazon:
   service: S3
   access_key_id: <%= ENV.fetch('AWS_ACCESS_KEY_ID', nil) %>
   secret_access_key: <%= ENV.fetch('AWS_SECRET_ACCESS_KEY', nil) %>
   region: <%= ENV.fetch('S3_REGION', nil) %>
   bucket: <%= ENV.fetch('S3_BUCKET_NAME', nil) %>
+  endpoint: <%= ENV.fetch('S3_ENDPOINT', nil) %>
+  force_path_style: <%= ENV.key?('S3_ENDPOINT') %>
 
 # Generic S3-compatible storage (e.g. Garage). Set ACTIVE_STORAGE_SERVICE=s3_compatible and
 # provide S3_BUCKET_NAME, S3_REGION, S3_ENDPOINT and the AWS_* credentials.
