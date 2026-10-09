@@ -11,10 +11,16 @@ module DeviseSessionHelpers
     # Auto-created host platform and community cap each other's privacy; set both directly.
     host_platform.community&.update_columns(privacy: 'public')
     host_platform.update_columns(privacy: 'public')
-    host_platform.update!(host_url: 'http://www.example.com')
+    host_platform.update!(host_url: spec_host_url)
     wizard = BetterTogether::Wizard.find_or_create_by(identifier: 'host_setup')
     wizard.mark_completed
     host_platform
+  end
+
+  # Redirects are checked against the platform URL, so it must carry the Capybara server port when one is running.
+  def spec_host_url
+    server = Capybara.current_session.server
+    server ? "http://www.example.com:#{server.port}" : 'http://www.example.com'
   end
 
   def login_as_platform_manager
