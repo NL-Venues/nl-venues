@@ -29,6 +29,7 @@ RUN apt-get update -qq \
     postgresql-client \
     libpq-dev \
     nodejs \
+    npm \
     libssl-dev \
     apt-transport-https \
     ca-certificates \
