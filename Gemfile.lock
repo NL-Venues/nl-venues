@@ -73,10 +73,10 @@ GIT
 
 GIT
   remote: https://github.com/better-together-org/storext.git
-  revision: ebc92461e95d07c34f5d8eac4eb7ad13cfd92afa
+  revision: 83533ff3e5fad660970d309cd168b6171dbd9fed
   specs:
     storext (3.3.1)
-      activerecord (>= 4.0, < 8.1)
+      activerecord (>= 4.0, < 8.2)
       virtus
 
 GEM
@@ -213,8 +213,8 @@ GEM
     bindex (0.8.1)
     binding_of_caller (2.0.0)
       debug_inspector (>= 1.2.0)
-    bootsnap (1.24.6)
-      msgpack (~> 1.2)
+    bootsnap (1.26.0)
+      msgpack (~> 1.5)
     bootstrap (5.3.8)
       popper_js (>= 2.11.8, < 3)
     brakeman (8.0.4)
@@ -326,7 +326,7 @@ GEM
       dry-inflector (~> 1.0)
       dry-logic (~> 1.4)
       zeitwerk (~> 2.6)
-    easy_translate (0.5.1)
+    easy_translate (0.5.2)
       thread
       thread_safe
     elasticsearch (7.17.11)
@@ -533,7 +533,7 @@ GEM
     mobility-actiontext (1.1.1)
       actiontext (>= 6.0)
       mobility (~> 1.2)
-    msgpack (1.8.4)
+    msgpack (1.8.5)
     multi_json (1.21.2)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
@@ -683,7 +683,7 @@ GEM
       logger
       prism (>= 1.6.0)
       tsort
-    rbtrace (0.5.4)
+    rbtrace (0.5.5)
       ffi (>= 1.0.6)
       msgpack (>= 0.4.3)
       optimist (>= 3.0.0)
@@ -900,7 +900,7 @@ GEM
     unicode-display_width (3.3.0)
       unicode-emoji (~> 4.3)
     unicode-emoji (4.3.0)
-    uri (1.1.1)
+    uri (1.1.2)
     useragent (0.16.11)
     version_gem (1.1.15)
     virtus (2.0.0)
