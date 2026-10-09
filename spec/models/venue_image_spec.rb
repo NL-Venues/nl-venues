@@ -21,7 +21,6 @@ RSpec.describe VenueImage, type: :model do
   it 'applies a venue privacy change to all its images', :aggregate_failures do
     venue = create(:venue)
     blocks = Array.new(2) { attach(venue) }
-
     %w[public private].each do |privacy|
       venue.update!(privacy:)
       expect(blocks.map { |block| block.reload.privacy }).to all(eq(privacy))
