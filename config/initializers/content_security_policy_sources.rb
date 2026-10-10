@@ -3,7 +3,7 @@
 # CE builds the Content-Security-Policy from importmap pins, the environment and these registered
 # sources (read per request). Everything this host app loads from another origin is registered here so
 # a deployment needs no CSP_* environment variables: the Google tag, and the origin that serves
-# Active Storage files directly (presigned URLs, for example the host logo).
+# Active Storage files directly (presigned URLs such as the host logo, and direct uploads).
 module NlVenuesContentSecurityPolicy
   GOOGLE_TAG_SCRIPT_SOURCES = %w[https://www.googletagmanager.com].freeze
   GOOGLE_TAG_CONNECT_SOURCES = %w[
@@ -32,7 +32,10 @@ module NlVenuesContentSecurityPolicy
       BetterTogether.register_content_security_policy_sources(:img_src, *GOOGLE_TAG_IMG_SOURCES)
     end
 
-    BetterTogether.register_content_security_policy_sources(:img_src, storage_origin(env))
+    # Direct uploads (Trix attachments) PUT the file straight to the storage origin, which is a connect-src.
+    origin = storage_origin(env)
+    BetterTogether.register_content_security_policy_sources(:img_src, origin)
+    BetterTogether.register_content_security_policy_sources(:connect_src, origin)
   end
 end
 

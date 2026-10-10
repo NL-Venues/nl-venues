@@ -36,7 +36,7 @@ RSpec.describe NlVenuesContentSecurityPolicy do
 
       registered = BetterTogether.registered_content_security_policy_sources
       expect(registered[:script_src]).to include('https://www.googletagmanager.com')
-      expect(registered[:connect_src]).to include('https://www.google-analytics.com')
+      expect(registered[:connect_src]).to include('https://www.google-analytics.com', 'https://s3.btsdev.ca')
       expect(registered[:img_src]).to include('https://s3.btsdev.ca', 'https://www.google-analytics.com')
     end
 
