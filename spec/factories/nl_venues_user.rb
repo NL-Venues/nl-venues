@@ -13,7 +13,8 @@ FactoryBot.define do
         platform_manager_role = BetterTogether::Role.find_by(identifier: 'platform_manager')
         host_platform.person_platform_memberships.create!(
           member: user.person,
-          role: platform_manager_role
+          role: platform_manager_role,
+          status: 'active'
         )
       end
     end

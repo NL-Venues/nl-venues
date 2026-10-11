@@ -6,16 +6,50 @@ module DeviseSessionHelpers
   include BetterTogether::Engine.routes.url_helpers
 
   def configure_host_platform
-    host_platform = create(:better_together_platform, :host, privacy: 'public')
+    host_platform = BetterTogether::Platform.find_by(host: true) ||
+                    create(:better_together_platform, :host, privacy: 'public')
+    # Auto-created host platform and community cap each other's privacy; set both directly.
+    host_platform.community&.update_columns(privacy: 'public')
+    host_platform.update_columns(privacy: 'public')
+    host_platform.update!(host_url: spec_host_url)
     wizard = BetterTogether::Wizard.find_or_create_by(identifier: 'host_setup')
     wizard.mark_completed
     host_platform
   end
 
+  # Redirects are checked against the platform URL, so it must carry the Capybara server port when one is running.
+  def spec_host_url
+    server = Capybara.current_session.server
+    server ? "http://www.example.com:#{server.port}" : 'http://www.example.com'
+  end
+
   def login_as_platform_manager
     user = create(:nl_venues_user, :confirmed, :platform_manager)
+    grant_content_publishing_agreement(user.person)
     sign_in_user(user.email, user.password)
     user
+  end
+
+  # CE requires an accepted content publishing agreement before a person can make records public.
+  def grant_content_publishing_agreement(person)
+    agreement = BetterTogether::Agreement.find_or_create_by!(
+      identifier: BetterTogether::PublicVisibilityGate::AGREEMENT_IDENTIFIER
+    )
+    BetterTogether::AgreementParticipant.find_or_create_by!(agreement:, participant: person) do |participant|
+      participant.accepted_at = Time.current
+    end
+  end
+
+  # Plain-text entry into an ActionText (Trix) field located by its hidden input name.
+  def fill_in_trix_field(locator, with:)
+    plain_text = with.respond_to?(:to_plain_text) ? with.to_plain_text : with.to_s
+    input_id = find("input[name='#{locator}']", visible: :all)[:id]
+    find("trix-editor[input=\"#{input_id}\"]").click.set(plain_text)
+  end
+
+  # CE bot defense rejects registration submits that arrive faster than the configured minimum.
+  def satisfy_bot_defense_minimum_wait(form_id)
+    sleep(BetterTogether::BotDefense::Challenge::FORM_CONFIG.fetch(form_id.to_sym)[:min_submit_seconds] + 0.1)
   end
 
   def sign_in_user(email, password)
@@ -28,7 +62,8 @@ module DeviseSessionHelpers
   def sign_up_new_user(token, email, password, person) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
     visit better_together.new_user_registration_path(invitation_code: token, locale: I18n.locale)
     fill_in_registration_form(email, password, person)
-    click_button 'Sign Up'
+    satisfy_bot_defense_minimum_wait(:registration)
+    click_button 'registration-submit-btn'
 
     # Check if we're still on the registration page (indicating form errors)
     if current_path.include?('registration') || page.has_content?('Sign Up')
@@ -53,7 +88,7 @@ module DeviseSessionHelpers
     fill_in 'user[password_confirmation]', with: password
     fill_in 'user[person_attributes][name]', with: person.name
     fill_in 'user[person_attributes][identifier]', with: person.identifier
-    fill_in 'user[person_attributes][description]', with: person.description
+    fill_in_trix_field('user[person_attributes][description]', with: person.description)
 
     # Check all required agreement checkboxes
     required_agreements = %w[

@@ -8,7 +8,14 @@ RSpec.describe 'Venues', type: :request do
 
   before do
     # Configure host platform without including DeviseSessionHelpers to avoid route conflicts
-    create(:better_together_platform, :host, privacy: 'public')
+    host = BetterTogether::Platform.find_by(host: true)
+    if host
+      # Auto-created host platform and community cap each other's privacy; set both directly.
+      host.community&.update_columns(privacy: 'public')
+      host.update_columns(privacy: 'public')
+    else
+      create(:better_together_platform, :host, privacy: 'public')
+    end
     wizard = BetterTogether::Wizard.find_or_create_by(identifier: 'host_setup')
     wizard.mark_completed
   end

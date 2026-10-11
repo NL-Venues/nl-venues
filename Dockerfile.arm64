@@ -1,5 +1,5 @@
 # Use an ARM-compatible Ruby image
-FROM arm64v8/ruby:3.4.4
+FROM arm64v8/ruby:3.4.10
 
 # Install necessary packages
 RUN apt-get update -qq && \
@@ -9,7 +9,7 @@ RUN apt-get update -qq && \
     libpq-dev \
     nodejs \
     libssl-dev \
-    libvips42 \
+    libvips42t64 \
     curl && \
     rm -rf /var/lib/apt/lists/*
 

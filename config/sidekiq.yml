@@ -7,33 +7,36 @@ development:
   queues:
     - [default, 1]   # Default queue with priority 1
     - [mailers, 2]   # Mailers queue with priority 2
-    - [es_indexing, 3]   # Elasticsearch indexing queue with priority 3 (lower priority)
     - [geocoding, 3]   # Geocoding queue with priority 3 (lower priority)
     - [maintenance, 3]   # Metrics queue with priority 3 (lower priority)
     - [metrics, 3]   # Metrics queue with priority 3 (lower priority)
     - [notifications, 3]   # Notifications queue with priority 3 (lower priority)
     - [platform_sync, 3]   # Federation platform sync queue
+    - [low_priority, 3]   # Low priority work (boundary imports, notification cache warming)
+    - [webhooks, 3]   # Outbound webhook delivery
 
 test:
   <<: *default
   queues:
     - [default, 1]   # Default queue with priority 1
     - [mailers, 2]   # Mailers queue with priority 2
-    - [es_indexing, 3]   # Elasticsearch indexing queue with priority 3 (lower priority)
     - [geocoding, 3]   # Geocoding queue with priority 3 (lower priority)
     - [maintenance, 3]   # Metrics queue with priority 3 (lower priority)
     - [metrics, 3]   # Metrics queue with priority 3 (lower priority)
     - [notifications, 3]   # Notifications queue with priority 3 (lower priority)
     - [platform_sync, 3]   # Federation platform sync queue
+    - [low_priority, 3]   # Low priority work (boundary imports, notification cache warming)
+    - [webhooks, 3]   # Outbound webhook delivery
 
 production:
   <<: *default
   queues:
     - [nl_venues_production_default, 1]   # Default queue with priority 1
     - [nl_venues_production_mailers, 2]   # Mailers queue with priority 2
-    - [nl_venues_production_es_indexing, 3]   # Elasticsearch indexing queue with priority 3 (lower priority)
     - [nl_venues_production_geocoding, 3]   # Geocoding queue with priority 3 (lower priority)
     - [nl_venues_production_maintenance, 3]   # Maintenance queue with priority 3 (lower priority)
     - [nl_venues_production_metrics, 3]   # Metrics queue with priority 3 (lower priority)
     - [nl_venues_production_notifications, 3]   # Notifications queue with priority 3 (lower priority)
     - [nl_venues_production_platform_sync, 3]   # Federation platform sync queue
+    - [nl_venues_production_low_priority, 3]   # Low priority work (boundary imports, notification cache warming)
+    - [nl_venues_production_webhooks, 3]   # Outbound webhook delivery

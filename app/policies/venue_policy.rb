@@ -9,7 +9,12 @@ class VenuePolicy < ApplicationPolicy
   def show?
     record.privacy_public? or
       permitted_to?('manage_platform') or
-      permitted_to?('read_communinity', record.community)
+      permitted_to?('read_community', record.community)
+  end
+
+  # Gate for the venue's media (see ce_venue_image_authorization_patch): same audience as the venue page.
+  def download?
+    show?
   end
 
   def create?

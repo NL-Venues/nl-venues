@@ -5,6 +5,10 @@ require 'rails_helper'
 RSpec.describe Venue, type: :model do
   subject(:venue) { build(:venue) }
 
+  include DeviseSessionHelpers
+
+  before { configure_host_platform }
+
   let(:existing_venue) { create(:venue) }
 
   # Test the factory and its validations

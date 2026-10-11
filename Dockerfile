@@ -2,7 +2,7 @@
 # When pushed to dokku via git, it detects this Dockerfile and automatically chooses Docker build
 
 # Stage 1: Build environment
-FROM ruby:3.4.4 AS builder
+FROM ruby:3.4.10 AS builder
 
 # Define build-time variables
 ARG AWS_ACCESS_KEY_ID
@@ -12,6 +12,8 @@ ARG FOG_HOST
 ARG FOG_REGION
 ARG ASSET_HOST
 ARG CDN_DISTRIBUTION_ID
+ARG ASSET_SYNC_ENABLED=""
+ARG ASSET_SYNC_ENDPOINT=""
 
 # Set environment variables for asset precompilation
 ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
@@ -21,6 +23,8 @@ ENV FOG_HOST=${FOG_HOST}
 ENV FOG_REGION=${FOG_REGION}
 ENV ASSET_HOST=${ASSET_HOST}
 ENV CDN_DISTRIBUTION_ID=${CDN_DISTRIBUTION_ID}
+ENV ASSET_SYNC_ENABLED=${ASSET_SYNC_ENABLED}
+ENV ASSET_SYNC_ENDPOINT=${ASSET_SYNC_ENDPOINT}
 
 # Install dependencies
 RUN apt-get update -qq \
@@ -29,11 +33,13 @@ RUN apt-get update -qq \
     postgresql-client \
     libpq-dev \
     nodejs \
+    npm \
     libssl-dev \
     apt-transport-https \
     ca-certificates \
-    libvips42 \
+    libvips42t64 \
     curl \
+  && (command -v yarn >/dev/null || npm install -g yarn) \
   && curl -sL https://sentry.io/get-cli/ | bash \
   && rm -rf /var/lib/apt/lists/*
 
@@ -55,7 +61,7 @@ COPY . .
 RUN bundle exec rake assets:precompile
 
 # Stage 2: Runtime environment
-FROM ruby:3.4.4
+FROM ruby:3.4.10
 
 # Install runtime dependencies
 RUN apt-get update -qq \
@@ -63,8 +69,8 @@ RUN apt-get update -qq \
     libpq-dev \
     nodejs \
     libssl-dev \
-    libvips42 \
-    yarn \
+    libvips42t64 \
+    npm \
     curl \
     nano \
   && curl -sL https://sentry.io/get-cli/ | bash \
