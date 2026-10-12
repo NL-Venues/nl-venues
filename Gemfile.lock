@@ -604,7 +604,7 @@ GEM
       actionmailer (>= 3)
       net-smtp
       premailer (~> 1.7, >= 1.7.9)
-    prettyprint (0.2.0)
+    prettyprint (0.2.1)
     prism (1.9.0)
     pry (0.16.0)
       coderay (~> 1.1)
