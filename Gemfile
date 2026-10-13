@@ -37,7 +37,10 @@ gem 'pundit-resources', '~> 1.1.6', github: 'better-together-org/pundit-resource
 gem 'rack-protection'
 gem 'rails', '~> 8.0.4'
 
-# Redis for ActionCable and background jobs
+# Redis for ActionCable and background jobs.
+# The allowed redis range comes from Rails' actioncable (subscription_adapter/redis.rb):
+# Rails <= 8.0 and 8.1.0-8.1.3 require redis < 6; Rails >= 8.1.4 allows < 7. Re-check it
+# when Rails changes (bundle exec gem contents actioncable | grep adapter/redis.rb).
 gem 'redis', '~> 5.4'
 
 gem 'sidekiq', '~> 8.1.7'
