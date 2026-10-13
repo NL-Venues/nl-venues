@@ -715,6 +715,7 @@ GEM
     responders (3.2.0)
       actionpack (>= 7.0)
       railties (>= 7.0)
+    rexml (3.4.4)
     rgeo (3.1.0)
     rgeo-activerecord (8.1.0)
       activerecord (>= 8.1, < 8.2)
