@@ -140,28 +140,32 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def spaces
-    @spaces ||= buildings.includes(:space).map(&:space).flatten.uniq
+    @spaces ||= geocoded_buildings.filter_map(&:space).uniq
   end
 
-  # rubocop:todo Metrics/MethodLength
-  def leaflet_points # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
-    buildings.joins(:space).map do |building|
+  # Names and addresses are user supplied, so they are HTML escaped before they go into popup markup.
+  def leaflet_points
+    link = venue_link
+
+    geocoded_buildings.filter_map do |building|
       point = building.to_leaflet_point
       next if point.nil?
 
-      point.merge(
-        label: "<a href='#{Rails.application.routes.url_helpers.venue_path(
-          self,
-          locale: I18n.locale
-        )}' class='text-decoration-none'><strong>#{name}</strong></a>",
-        popup_html: "<a href='#{Rails.application.routes.url_helpers.venue_path(
-          self,
-          locale: I18n.locale
-        )}' class='text-decoration-none'><strong>#{name}</strong></a><br>#{building.address}"
-      )
-    end.compact
+      point.merge(label: link, popup_html: "#{link}<br>#{ERB::Util.html_escape(building.address)}")
+    end
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def venue_link
+    url = Rails.application.routes.url_helpers.venue_path(self, locale: I18n.locale)
+    "<a href='#{url}' class='text-decoration-none'><strong>#{ERB::Util.html_escape(name)}</strong></a>"
+  end
+
+  # Uses the buildings and spaces already loaded by a collection map, and loads them in one query otherwise.
+  def geocoded_buildings
+    return buildings.select { |building| building.space.present? } if buildings.loaded?
+
+    buildings.includes(:space, :address).joins(:space)
+  end
 
   def to_s
     name
