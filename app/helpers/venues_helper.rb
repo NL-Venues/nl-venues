@@ -21,7 +21,9 @@ module VenuesHelper # rubocop:todo Style/Documentation
   end
 
   def venues_map
-    @venues_map ||= VenueCollectionMap.find_or_initialize_by(identifier: 'venues')
+    @venues_map ||= VenueCollectionMap.find_or_initialize_by(identifier: 'venues').tap do |map|
+      map.visible_scope = policy_scope(Venue)
+    end
   end
 
   private
