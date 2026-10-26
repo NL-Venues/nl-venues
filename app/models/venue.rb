@@ -88,14 +88,14 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   def self.permitted_attributes(id: false, destroy: false)
     [
-      stages_attributes: Stage.permitted_attributes(id: true, destroy: true),
-      venue_buildings_attributes: VenueBuilding.permitted_attributes(id: true, destroy: true),
-      venue_images_attributes: VenueImage.permitted_attributes(id: true, destroy: true),
-      venue_offers_attributes: VenueOffer.permitted_attributes(id: true, destroy: true),
-      person_community_memberships_attributes: BetterTogether::PersonCommunityMembership.permitted_attributes(id: true,
-                                                                                                              # rubocop:todo Layout/LineLength
-                                                                                                              destroy: true)
-      # rubocop:enable Layout/LineLength
+      {
+        stages_attributes: Stage.permitted_attributes(id: true, destroy: true),
+        venue_buildings_attributes: VenueBuilding.permitted_attributes(id: true, destroy: true),
+        venue_images_attributes: VenueImage.permitted_attributes(id: true, destroy: true),
+        venue_offers_attributes: VenueOffer.permitted_attributes(id: true, destroy: true),
+        person_community_memberships_attributes:
+          BetterTogether::PersonCommunityMembership.permitted_attributes(id: true, destroy: true)
+      }
     ] + super
   end
 
