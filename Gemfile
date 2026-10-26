@@ -3,15 +3,15 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.4.4'
+ruby '3.4.10'
 
 gem 'asset_sync'
 gem 'aws-sdk-s3', require: false
 
 # Use the published version of better_together for production
-gem 'better_together', '~> 0.10',
+gem 'better_together', '~> 0.11.0',
     github: 'better-together-org/community-engine-rails',
-    branch: 'main'
+    ref: '296a7d1dcb5a12a34b295bf6ccfa7c113b913e98'
 
 # Use the local development version of better_together
 # gem 'better_together', path: '/community-engine'
@@ -31,16 +31,16 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 8.0'
 
 # Pundit for authorization, custom fork for Better Together
-gem 'pundit-resources', '~> 1.1.4', github: 'better-together-org/pundit-resources'
+gem 'pundit-resources', '~> 1.1.6', github: 'better-together-org/pundit-resources'
 
 # Core Rails gem
 gem 'rack-protection'
-gem 'rails', '~> 8.0.4'
+gem 'rails', '~> 8.1.4'
 
 # Redis for ActionCable and background jobs
-gem 'redis', '~> 5.4'
+gem 'redis', '~> 6.0'
 
-gem 'sidekiq', '~> 8.1.5'
+gem 'sidekiq', '~> 8.1.7'
 
 gem 'connection_pool', '~> 3.0.2'
 

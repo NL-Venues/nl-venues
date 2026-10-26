@@ -47,6 +47,7 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   delegate :person_community_memberships, :person_community_memberships_attributes=, to: :community
 
+  after_update :sync_image_privacy, if: :saved_change_to_privacy?
   after_create :create_map, if: ->(obj) { obj.map.nil? }
   after_update :create_map, if: ->(obj) { obj.map.nil? }
 
@@ -55,12 +56,34 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
 
   slugged :name
 
-  settings index: default_elasticsearch_index do
-    mappings dynamic: 'false' do
-      indexes :name, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 3
-      indexes :description, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 2
-      indexes :formatted_address, type: :text, analyzer: 'custom_analyzer', search_analyzer: 'standard', boost: 2
-    end
+  has_many :building_addresses, through: :buildings, source: :address, class_name: 'BetterTogether::Address'
+
+  # Weights mirror the old ES boosts: name > description and address.
+  searchable pg_search: {
+    against: { identifier: 'D' },
+    associated_against: {
+      string_translations: { value: 'A' },
+      rich_text_translations: { body: 'C' },
+      building_addresses: { line1: 'B', city_name: 'B', state_province_name: 'C' }
+    },
+    using: {
+      tsearch: { prefix: true, dictionary: 'simple' },
+      trigram: { only: [:identifier], threshold: 0.3 }
+    },
+    ranked_by: ':tsearch + :trigram'
+  }
+
+  # CE's PgSearchBackend reads pg_search_rank but never selects it, so scores
+  # tie at 0.0; select the rank here so weighting and trigram boosts apply.
+  def self.search_backend_query(query)
+    super.with_pg_search_rank
+  end
+
+  # Venues are public by design while their primary community is a private
+  # placeholder (primary_community_extra_attrs), so CE's privacy ceiling
+  # would reject every public venue; visibility is governed by policy.
+  def privacy_ceiling_exempt?
+    true
   end
 
   def self.permitted_attributes(id: false, destroy: false)
@@ -74,16 +97,6 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
                                                                                                               destroy: true)
       # rubocop:enable Layout/LineLength
     ] + super
-  end
-
-  # Customize the data sent to Elasticsearch for indexing
-  def as_indexed_json(_options = {})
-    as_json(
-      only: [:id],
-      methods: [:name, :slug, :formatted_address, *self.class.localized_attribute_list.keep_if do |a|
-        a.starts_with?('name') || a.starts_with?('description')
-      end]
-    )
   end
 
   def create_venue_map
@@ -127,30 +140,42 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def spaces
-    @spaces ||= buildings.includes(:space).map(&:space).flatten.uniq
+    @spaces ||= geocoded_buildings.filter_map(&:space).uniq
   end
 
-  # rubocop:todo Metrics/MethodLength
-  def leaflet_points # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
-    buildings.joins(:space).map do |building|
+  # Names and addresses are user supplied, so they are HTML escaped before they go into popup markup.
+  def leaflet_points
+    link = venue_link
+
+    geocoded_buildings.filter_map do |building|
       point = building.to_leaflet_point
       next if point.nil?
 
-      point.merge(
-        label: "<a href='#{Rails.application.routes.url_helpers.venue_path(
-          self,
-          locale: I18n.locale
-        )}' class='text-decoration-none'><strong>#{name}</strong></a>",
-        popup_html: "<a href='#{Rails.application.routes.url_helpers.venue_path(
-          self,
-          locale: I18n.locale
-        )}' class='text-decoration-none'><strong>#{name}</strong></a><br>#{building.address}"
-      )
-    end.compact
+      point.merge(label: link, popup_html: "#{link}<br>#{ERB::Util.html_escape(building.address)}")
+    end
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def venue_link
+    url = Rails.application.routes.url_helpers.venue_path(self, locale: I18n.locale)
+    "<a href='#{url}' class='text-decoration-none'><strong>#{ERB::Util.html_escape(name)}</strong></a>"
+  end
+
+  # Uses the buildings and spaces already loaded by a collection map, and loads them in one query otherwise.
+  def geocoded_buildings
+    return buildings.select { |building| building.space.present? } if buildings.loaded?
+
+    buildings.includes(:space, :address).joins(:space)
+  end
 
   def to_s
     name
+  end
+
+  private
+
+  # Venue images show to the same people as the venue, so a privacy change applies to all of them.
+  def sync_image_privacy
+    BetterTogether::Content::Image.where(id: venue_images.select(:image_id))
+                                  .update_all(privacy:, updated_at: Time.current)
   end
 end
