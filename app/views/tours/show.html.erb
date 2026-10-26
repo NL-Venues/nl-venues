@@ -71,14 +71,14 @@
             <div class="tour-artists">
               <h4><%= Artist.model_name.human.pluralize %></h4>
               <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <%= render(policy_scope(@tour.artists)) || render('artists/none') %>
+                <%= render(policy_scope(@tour.artists).preload(ArtistsController::CARD_PRELOADS)) || render('artists/none') %>
               </div>
             </div>
 
             <div class="tour-stops"></div>
               <h4><%= TourStop.model_name.human.pluralize %></h4>
               <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <%= render(policy_scope(@tour.venues)) || render('venues/none') %>
+                <%= render(policy_scope(@tour.venues).preload(VenuesController::INDEX_PRELOADS)) || render('venues/none') %>
               </div>
             </div>
           </div>
