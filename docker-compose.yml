@@ -3,7 +3,6 @@
 
 # The host app (built using the Better Together Community Engine),
 # a PostgreSQL db,
-# ElasticSearch 7,
 # a mail server,
 # redis,
 # Sidekiq
@@ -11,7 +10,6 @@
 volumes:
   nl-venues-bundler-gems:
   nl-venues-db-data:
-  nl-venues-elasticsearch:
   nl-venues-redis:
 
 x-env-info: &env-info
@@ -28,7 +26,6 @@ x-app-shared: &app-shared
     - ../../better-together/community-engine-rails:/community-engine
     - nl-venues-bundler-gems:/usr/local/bundle/
   depends_on:
-    - elasticsearch
     - db
     - redis
   # user: $USER:$USER
@@ -51,25 +48,6 @@ services:
       - nl-venues-db-data:/var/lib/postgresql/data
     ports:
       - "5437:5432"
-
-  elasticsearch:
-    container_name: nl-venues-elasticsearch
-    image: elasticsearch:7.17.23
-    environment:
-      - node.name=elasticsearch
-      - cluster.name=nl-venues-es
-      - discovery.seed_hosts=elasticsearch
-      - discovery.type=single-node
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports:
-      - 9207:9200
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - nl-venues-elasticsearch:/usr/share/elasticsearch/data
 
   mail-server:
     image: mailhog/mailhog
