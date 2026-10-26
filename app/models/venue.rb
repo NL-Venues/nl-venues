@@ -110,7 +110,7 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   def primary_building
     return if venue_buildings.empty?
 
-    @primary_building ||= venue_buildings.primary_record(id)&.building
+    @primary_building ||= primary_of(venue_buildings)&.building
   end
 
   def primary_address
@@ -122,21 +122,21 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   def primary_image
-    return if images.empty?
+    return if venue_images.empty?
 
-    @primary_image ||= venue_images.primary_record(id)&.image
+    @primary_image ||= primary_of(venue_images)&.image
   end
 
   def primary_stage
     return if stages.empty?
 
-    @primary_stage ||= stages.primary_record(id)
+    @primary_stage ||= primary_of(stages)
   end
 
   def primary_venue_offer
     return if venue_offers.empty?
 
-    @primary_venue_offer ||= venue_offers.primary_record(id)
+    @primary_venue_offer ||= primary_of(venue_offers)
   end
 
   def spaces
@@ -172,6 +172,11 @@ class Venue < ApplicationRecord # rubocop:todo Metrics/ClassLength
   end
 
   private
+
+  # Uses the preloaded association when there is one, so lists do not query per venue.
+  def primary_of(records)
+    records.loaded? ? records.find(&:primary_flag) : records.primary_record(id)
+  end
 
   # Venue images show to the same people as the venue, so a privacy change applies to all of them.
   def sync_image_privacy

@@ -113,4 +113,36 @@ RSpec.describe Venue, type: :model do
       expect(existing_venue.formatted_address).to be_nil
     end
   end
+
+  describe 'primary records' do
+    let(:venue) { create(:venue, :public) }
+    let!(:primary_stage) { create(:stage, venue:, primary_flag: true) }
+    let!(:primary_building) { create(:venue_building, venue:, primary_flag: true).building }
+
+    before do
+      create(:stage, venue:, primary_flag: false)
+      create(:venue_building, venue:, primary_flag: false)
+    end
+
+    it 'finds the primary records with queries when the associations are not loaded' do
+      fresh = described_class.find(venue.id)
+
+      expect([fresh.primary_stage, fresh.primary_building]).to eq([primary_stage, primary_building])
+    end
+
+    # rubocop:disable-next RSpec/ExampleLength, RSpec/MultipleExpectations
+    it 'finds the same primary records from preloaded associations without querying' do
+      loaded = described_class.preload(:stages, venue_buildings: :building).find(venue.id)
+      found = nil
+      queries = 0
+      counter = ->(*, payload) { queries += 1 unless payload[:name] == 'SCHEMA' }
+
+      ActiveSupport::Notifications.subscribed(counter, 'sql.active_record') do
+        found = [loaded.primary_stage, loaded.primary_building]
+      end
+
+      expect(found).to eq([primary_stage, primary_building])
+      expect(queries).to eq(0)
+    end
+  end
 end
