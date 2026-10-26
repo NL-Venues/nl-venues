@@ -56,7 +56,7 @@ module DeviseSessionHelpers
     Capybara.reset_session! # Ensure a new session is created
     visit new_user_session_path(locale: I18n.locale)
     fill_in_email_and_password(email, password)
-    click_button 'Sign In'
+    click_button 'Sign In', wait: 15 # the button is disabled until the page is ready
   end
 
   def sign_up_new_user(token, email, password, person) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
