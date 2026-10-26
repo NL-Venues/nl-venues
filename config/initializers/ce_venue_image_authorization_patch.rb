@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/OneClassPerFile
+
 # CE's media gate (ActiveStorageSecurity) authorizes an image block by the block's own privacy and
 # page placement. Venue images are blocks attached through VenueImage, not placed on a page, so they
 # must be authorized as their venue: the same people who can see the venue can see its images.
@@ -45,3 +47,4 @@ Rails.application.config.to_prepare do
   security = BetterTogether::ActiveStorageSecurity
   security.prepend(VenueImageBlobAuthorization) unless security.include?(VenueImageBlobAuthorization)
 end
+# rubocop:enable Style/OneClassPerFile
