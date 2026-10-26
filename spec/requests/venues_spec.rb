@@ -20,7 +20,7 @@ RSpec.describe 'Venues', type: :request do
     wizard.mark_completed
   end
 
-  def capture_select_queries
+  def capture_select_queries(&)
     queries = []
     callback = lambda do |_name, _started, _finished, _unique_id, payload|
       sql = payload[:sql].to_s
@@ -31,7 +31,7 @@ RSpec.describe 'Venues', type: :request do
       queries << sql
     end
 
-    ActiveSupport::Notifications.subscribed(callback, 'sql.active_record') { yield }
+    ActiveSupport::Notifications.subscribed(callback, 'sql.active_record', &)
     queries
   end
 
@@ -74,6 +74,7 @@ RSpec.describe 'Venues', type: :request do
       expect(response).to have_http_status(:ok)
     end
 
+    # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations
     it 'keeps show-page query growth bounded when additional hosted events are rendered' do
       create_hosted_event_for(venue)
 
@@ -94,5 +95,6 @@ RSpec.describe 'Venues', type: :request do
 
       expect(expanded_queries.size - baseline_queries.size).to be <= 6
     end
+    # rubocop:enable RSpec/ExampleLength, RSpec/MultipleExpectations
   end
 end

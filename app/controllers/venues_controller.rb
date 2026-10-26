@@ -7,7 +7,8 @@ class VenuesController < BetterTogether::FriendlyResourceController
     { venue_buildings: { building: %i[address space] } },
     { venue_images: { image: { media_attachment: :blob } } },
     { venue_offers: %i[deal_types ticket_sale_options] },
-    { stages: [{ tech_specs_attachment: :blob }, { stage_plot_attachment: :blob }, { seating_chart_attachment: :blob }] },
+    { stages: [{ tech_specs_attachment: :blob }, { stage_plot_attachment: :blob },
+               { seating_chart_attachment: :blob }] },
     { contacts: %i[phone_numbers email_addresses addresses social_media_accounts website_links] },
     { hosted_events: [:location, :categories, { event_hosts: :host }] }
   ].freeze
