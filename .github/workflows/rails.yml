@@ -23,21 +23,9 @@ jobs:
         image: redis:7.2-alpine
         ports:
           - '6379:6379'
-      elasticsearch:
-        image: elasticsearch:7.17.23
-        ports:
-          - "9200:9200"
-        env:
-          "node.name": elasticsearch
-          "cluster.name": nl-venues-es
-          "discovery.seed_hosts": elasticsearch
-          "discovery.type": single-node
-          "bootstrap.memory_lock": true
-          "ES_JAVA_OPTS": "-Xms512m -Xmx512m"
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgis://rails:password@localhost:5432/rails_test"
-      ES_HOST: "http://localhost"
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     steps:
       - name: Checkout code
