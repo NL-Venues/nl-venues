@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-# rubocop:disable RSpec/ExampleLength
+# rubocop:disable-next RSpec/ExampleLength
 RSpec.describe VenueCollectionMap do
   include DeviseSessionHelpers
 
@@ -94,4 +94,3 @@ RSpec.describe VenueCollectionMap do
     end
   end
 end
-# rubocop:enable RSpec/ExampleLength

@@ -13,7 +13,7 @@ class VenueInvitation < BetterTogether::PlatformInvitation
 
   def self.permitted_attributes(id: false, destroy: false)
     super + [
-      venue_invitation_venue_attributes: VenueInvitationVenue.permitted_attributes(id: true, destroy: true)
+      { venue_invitation_venue_attributes: VenueInvitationVenue.permitted_attributes(id: true, destroy: true) }
     ]
   end
 
