@@ -52,26 +52,13 @@ module DeviseSessionHelpers
     sleep(BetterTogether::BotDefense::Challenge::FORM_CONFIG.fetch(form_id.to_sym)[:min_submit_seconds] + 0.1)
   end
 
-  SIGN_IN_ATTEMPTS = 3
-
-  # The button stays disabled until the page's JavaScript is ready. A slow runner can miss the
-  # wait, so start over with a fresh page before giving up.
+  # The button is found by its English label, so the page is requested in the default locale.
+  # I18n.locale can be French here: it leaks from the registration flow and from random factory locales.
   def sign_in_user(email, password)
-    attempts = 0
-    begin
-      attempts += 1
-      submit_sign_in_form(email, password)
-    rescue Capybara::ElementNotFound
-      retry if attempts < SIGN_IN_ATTEMPTS
-      raise
-    end
-  end
-
-  def submit_sign_in_form(email, password)
     Capybara.reset_session! # Ensure a new session is created
-    visit new_user_session_path(locale: I18n.locale)
+    visit new_user_session_path(locale: I18n.default_locale)
     fill_in_email_and_password(email, password)
-    click_button 'Sign In', wait: 15
+    click_button 'Sign In', wait: 15 # the button is disabled until the page is ready
   end
 
   def sign_up_new_user(token, email, password, person) # rubocop:todo Metrics/AbcSize, Metrics/MethodLength
