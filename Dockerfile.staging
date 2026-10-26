@@ -8,7 +8,7 @@
 #   - nodejs/yarn in builder only (needed for ActionText/Trix assets), not runtime
 
 # Stage 1: Build libxml2
-FROM ruby:3.4.4-slim AS libxml2-bin
+FROM ruby:3.4.10-slim AS libxml2-bin
 
 RUN apt-get update -qq \
   && apt-get install -y --no-install-recommends \
@@ -27,7 +27,7 @@ RUN ./configure --prefix=/opt/libxml2 PYTHON=/usr/bin/python3 \
   && rm -rf /tmp/libxml2 /tmp/libxml2.tar.xz
 
 # Stage 2: Build environment
-FROM ruby:3.4.4-slim AS builder
+FROM ruby:3.4.10-slim AS builder
 
 # Install build dependencies
 # nodejs + yarn are required for ActionText/Trix asset precompilation only
@@ -41,10 +41,11 @@ RUN apt-get update -qq \
     libyaml-dev \
     apt-transport-https \
     ca-certificates \
-    libvips42 \
+    libvips42t64 \
     curl \
     nodejs \
-    yarn \
+    npm \
+  && (command -v yarn >/dev/null || npm install -g yarn) \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /bt
@@ -62,7 +63,7 @@ COPY . .
 RUN ASSET_SYNC_ENABLED=false bundle exec rake assets:precompile
 
 # Stage 3: Runtime environment
-FROM ruby:3.4.4 AS app-host
+FROM ruby:3.4.10 AS app-host
 
 # Install runtime dependencies (no nodejs — not needed at runtime)
 RUN apt-get update -qq \
@@ -71,7 +72,7 @@ RUN apt-get update -qq \
     gcc \
     libpq-dev \
     libssl-dev \
-    libvips42 \
+    libvips42t64 \
     libyaml-dev \
     curl \
     nano \
