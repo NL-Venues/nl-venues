@@ -23,21 +23,9 @@ jobs:
         image: redis:7.2-alpine
         ports:
           - '6379:6379'
-      elasticsearch:
-        image: elasticsearch:7.17.23
-        ports:
-          - "9200:9200"
-        env:
-          "node.name": elasticsearch
-          "cluster.name": nl-venues-es
-          "discovery.seed_hosts": elasticsearch
-          "discovery.type": single-node
-          "bootstrap.memory_lock": true
-          "ES_JAVA_OPTS": "-Xms512m -Xmx512m"
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgis://rails:password@localhost:5432/rails_test"
-      ES_HOST: "http://localhost"
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
     steps:
       - name: Checkout code
@@ -47,8 +35,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - name: Install Chrome
-        run: sudo apt-get install -y chromium-browser
+      # JavaScript/feature specs use the Chrome that ships on ubuntu-latest. Do not install chromium-browser
+      # with apt: on Ubuntu 24.04 it downloads a snap, and a Snap Store timeout fails the whole job.
+      - name: Verify browser
+        run: google-chrome --version && chromedriver --version
       - name: Generate Active Record encryption keys (test only)
         run: |
           echo "ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY=$(openssl rand -base64 32)" >> $GITHUB_ENV
