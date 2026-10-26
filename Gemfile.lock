@@ -256,7 +256,7 @@ GEM
       term-ansicolor (>= 1.11)
       thor (>= 1.5)
       tins (>= 1.54)
-    crass (1.0.7)
+    crass (1.0.8)
     css_parser (3.3.0)
       addressable
       base64
