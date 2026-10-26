@@ -3,6 +3,10 @@ en:
   artists:
     save_artist: Save Artist
   better_together:
+    layouts:
+      footer:
+        powered_by_html: >-
+          Built on <a href="%{ce_url}" target="_blank" rel="noopener noreferrer" class="text-muted">Community Engine</a> — open-source community platform by <a href="%{bts_url}" target="_blank" rel="noopener noreferrer" class="text-muted">Better Together Solutions</a>, a community technology collective
     navigation_items:
       route_names:
         artists: Artists
