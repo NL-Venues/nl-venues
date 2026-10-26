@@ -12,3 +12,9 @@ AllCops:
 Style/StringLiterals:
   Exclude:
     - 'db/migrate/*'
+
+# The spec helpers print diagnostics on purpose (pending migrations, sign-up form errors).
+RSpec/Output:
+  Exclude:
+    - 'spec/rails_helper.rb'
+    - 'spec/support/devise_session_helpers.rb'
