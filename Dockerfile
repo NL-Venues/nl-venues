@@ -2,7 +2,7 @@
 # When pushed to dokku via git, it detects this Dockerfile and automatically chooses Docker build
 
 # Stage 1: Build environment
-FROM ruby:3.4.10 AS builder
+FROM ruby:3.4.12 AS builder
 
 # Define build-time variables
 ARG AWS_ACCESS_KEY_ID
@@ -61,10 +61,11 @@ COPY . .
 RUN bundle exec rake assets:precompile
 
 # Stage 2: Runtime environment
-FROM ruby:3.4.10
+FROM ruby:3.4.12
 
 # Install runtime dependencies
 RUN apt-get update -qq \
+  && apt-get upgrade -y --no-install-recommends \
   && apt-get install -y --no-install-recommends \
     libpq-dev \
     nodejs \
