@@ -79,6 +79,9 @@ module BetterTogether
 
     config.time_zone = ENV.fetch('APP_TIME_ZONE', 'Newfoundland')
 
+    # A record always renders from its own partial path (venues/_venue), whichever controller namespace renders it.
+    config.action_view.prefix_partial_path_with_controller_namespace = false
+
     # Add engine manifest to precompile assets in production
     initializer 'assets' do |app|
       # Ensure we are not modifying frozen arrays
