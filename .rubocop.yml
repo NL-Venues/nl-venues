@@ -8,6 +8,8 @@ AllCops:
     # Copied verbatim from the better_together engine by install:migrations; fixes belong upstream.
     - 'db/migrate/*.better_together.rb'
     - 'vendor/**/*'
+    # Agent session worktrees are separate checkouts, linted in their own tree.
+    - 'worktrees/**/*'
   NewCops: enable
 Style/StringLiterals:
   Exclude:
