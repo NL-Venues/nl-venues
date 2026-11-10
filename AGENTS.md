@@ -18,3 +18,7 @@ Instructions for AI coding agents working in this repository.
 - Before mutating work, run `./scripts/session_worktree.sh ensure --repo . --agent <codex|claude|copilot|local> --session-id "${CODEX_THREAD_ID:-$(date -u +%Y%m%dT%H%M%SZ)}" --storage-mode local`.
 - Run consequential commands through `./scripts/session_command_log.sh run --intent "<intent>" -- <command>`.
 - Session command logs and worktree metadata must remain anchored in the repository's main `logs/sessions/` directory, even when the current shell is inside a linked worktree.
+
+## Localization
+- All user-facing text is localized: static copy through I18n, stored content through Mobility translated attributes with an explicit `type: :string` or `backend: :action_text`, never plain columns.
+- Any change to a `translates` attribute regenerates and commits the localized attribute diagram first (`bin/export_localized_attributes`, see `docs/development/localized_attributes.md`). The rule and the gate are described in the Community Engine skill `.claude/skills/localization-mandatory/SKILL.md`.
