@@ -24,8 +24,10 @@ x-app-shared: &app-shared
   volumes:
     - .:/bt
     # - ../pundit-resources:/pundit-resources
-    - ../../better-together/community-engine-rails:/community-engine
+    - ${COMMUNITY_ENGINE_PATH:-../../better-together/community-engine-rails}:/community-engine
     - nl-venues-bundler-gems:/usr/local/bundle/
+  environment:
+    BTR_WORKTREE_DB_SUFFIX: ${BTR_WORKTREE_DB_SUFFIX:-}
   depends_on:
     - db
     - redis
