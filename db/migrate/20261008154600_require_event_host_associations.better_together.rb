@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260530193000)
 class RequireEventHostAssociations < ActiveRecord::Migration[7.2]
   TABLE = :better_together_event_hosts
   REQUIRED_COLUMNS = %i[event_id host_type host_id].freeze

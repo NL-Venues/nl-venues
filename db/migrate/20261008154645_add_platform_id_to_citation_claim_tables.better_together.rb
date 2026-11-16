@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260607005003)
 # Phase 8 — Joatu::ResponseLink.
 #
 # Originally also added platform_id to better_together_citations/claims/

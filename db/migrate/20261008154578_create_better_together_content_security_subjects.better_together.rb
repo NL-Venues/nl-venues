@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260408153000)
 class CreateBetterTogetherContentSecuritySubjects < ActiveRecord::Migration[7.1]
   def change
     create_table :better_together_content_security_subjects, id: :uuid do |t|

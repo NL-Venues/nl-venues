@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260412223000)
 # Backfills the default map-tile CSP img_src origins (OpenStreetMap wildcard + bare host,
 # Esri/ArcGIS satellite tiles — see ContentSecurityPolicySources::DEFAULT_MAP_TILE_IMG_SOURCES)
 # onto any local platform missing one or more of them. Delegates to the idempotent rake task
@@ -12,15 +11,8 @@ class SeedDefaultLocalPlatformCspImageOrigins < ActiveRecord::Migration[7.1]
 
     puts 'Seeding default map-tile CSP img_src origins onto local platforms missing them...'
 
-    load BetterTogether::Engine.root.join(
-      'lib', 'tasks', 'better_together', 'seed_platform_csp_img_src_defaults.rake'
-    )
-
-    begin
-      Rake::Task['better_together:seed:platform_csp_img_src_defaults'].invoke
-    rescue RuntimeError
-      Rake::Task['app:better_together:seed:platform_csp_img_src_defaults'].invoke
-    end
+    run_engine_rake_task('better_together:seed:platform_csp_img_src_defaults', file: 'seed_platform_csp_img_src_defaults.rake',
+                                                                               skip_when_empty: %i[better_together_platforms])
   end
 
   def down
@@ -33,6 +25,6 @@ class SeedDefaultLocalPlatformCspImageOrigins < ActiveRecord::Migration[7.1]
   def platforms_table_ready?
     table_exists?(:better_together_platforms) &&
       column_exists?(:better_together_platforms, :settings) &&
-      column_exists?(:better_together_platforms, :external)
+      (column_exists?(:better_together_platforms, :external) || column_exists?(:better_together_platforms, :locality))
   end
 end

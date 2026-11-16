@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260604121000)
 # Adds community references to posts.
 class AddCommunityToBetterTogetherPosts < ActiveRecord::Migration[7.2]
   def up

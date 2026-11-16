@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260607006003)
 # Phase 8 — Backfill Joatu::ResponseLink platform_id from its source (Offer or Request).
 #
 # Originally also backfilled Citations/Claims (from their polymorphic parents) and

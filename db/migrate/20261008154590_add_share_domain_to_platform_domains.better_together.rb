@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260514100001)
 class AddShareDomainToPlatformDomains < ActiveRecord::Migration[7.2]
   def up
     unless column_exists?(:better_together_platform_domains, :share_domain)

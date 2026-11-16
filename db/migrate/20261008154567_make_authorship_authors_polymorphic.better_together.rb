@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260404190000)
 class MakeAuthorshipAuthorsPolymorphic < ActiveRecord::Migration[7.2]
   LEGACY_INDEX_NAME = 'by_authorship_author'
   POLYMORPHIC_INDEX_NAME = 'by_authorship_author_type_and_id'

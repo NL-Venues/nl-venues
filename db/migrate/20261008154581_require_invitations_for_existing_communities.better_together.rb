@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260412213000)
 # This migration originally forced requires_invitation=TRUE and
 # allow_membership_requests=FALSE onto every existing community regardless
 # of any value an admin had already explicitly configured — a real incident

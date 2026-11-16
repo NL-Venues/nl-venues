@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260607005002)
 # Phase 8 — Simple child tables: AgreementTerm, WizardStep/Definition,
 # ChecklistItem, EventHost, CalendarEntry, PersonCommunityMembership, Comment.
 class AddPlatformIdToChildTables < ActiveRecord::Migration[7.2]

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260330172000)
 class AddPlatformAndLoggedInToMetrics < ActiveRecord::Migration[7.2] # rubocop:disable Metrics/ClassLength
   class Platform < ActiveRecord::Base
     self.table_name = 'better_together_platforms'

@@ -14,6 +14,10 @@ class SeedBetterTogetherAgreements < ActiveRecord::Migration[8.1]
 
   def up
     return unless table_exists?(:better_together_agreements) && table_exists?(:better_together_agreement_terms)
+    # The rake task uses the current models, whose columns (platform_id on several tables) are added by engine
+    # migrations installed after this one. A database built from zero has no platform yet and gets its agreements
+    # from db:seed, so there is nothing to repair here.
+    return unless platform_exists?
 
     previous_clear = ENV.delete('CLEAR')
     Rails.application.load_tasks unless Rake::Task.task_defined?(TASK)
@@ -22,6 +26,10 @@ class SeedBetterTogetherAgreements < ActiveRecord::Migration[8.1]
     task.invoke
   ensure
     ENV['CLEAR'] = previous_clear if previous_clear
+  end
+
+  def platform_exists?
+    table_exists?(:better_together_platforms) && select_value('SELECT 1 FROM better_together_platforms LIMIT 1')
   end
 
   def down

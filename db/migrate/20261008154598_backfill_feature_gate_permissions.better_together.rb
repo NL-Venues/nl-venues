@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260522123000)
 class BackfillFeatureGatePermissions < ActiveRecord::Migration[7.2]
   FEATURE_PERMISSION_ATTRIBUTES = [
     {

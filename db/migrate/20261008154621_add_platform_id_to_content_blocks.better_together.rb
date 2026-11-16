@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260606001006)
 # Phase 5 — Content::Block isolation.
 # Covers all 25 STI subclasses (single table inheritance on better_together_content_blocks).
 # Removes the old global unique index on identifier and replaces it with a

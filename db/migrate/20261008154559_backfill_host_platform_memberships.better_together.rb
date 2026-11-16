@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260321000002)
 # Backfill PersonPlatformMembership records for people who pre-date the
 # multi-tenant architecture.
 #

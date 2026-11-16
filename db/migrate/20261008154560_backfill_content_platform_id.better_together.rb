@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260321000003)
 # Backfill platform_id on content tables (posts, pages, events) to the host platform
 # for all records that pre-date the multi-tenant federation provenance migrations.
 #

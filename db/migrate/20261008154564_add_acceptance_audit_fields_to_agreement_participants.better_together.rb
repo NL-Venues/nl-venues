@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260330203000)
 class AddAcceptanceAuditFieldsToAgreementParticipants < ActiveRecord::Migration[7.1]
   def up
     return unless table_exists?(:better_together_agreement_participants)
@@ -36,6 +35,8 @@ class AddAcceptanceAuditFieldsToAgreementParticipants < ActiveRecord::Migration[
   end
 
   def backfill_acceptance_audit_fields
+    return unless table_has_rows?(:better_together_agreement_participants)
+
     BetterTogether::AgreementParticipant.reset_column_information
     BetterTogether::Agreement.reset_column_information
 

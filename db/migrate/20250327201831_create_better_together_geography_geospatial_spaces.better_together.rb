@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20250325205652)
+# Join table between a geospatial entity and its spaces
 class CreateBetterTogetherGeographyGeospatialSpaces < ActiveRecord::Migration[7.1]
   def change
     create_bt_table :geospatial_spaces, prefix: :better_together_geography do |t|

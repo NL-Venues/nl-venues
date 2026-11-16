@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260408190000)
 class FixActiveStorageLocaleUniqueness < ActiveRecord::Migration[7.2]
   def up
     remove_index :active_storage_attachments, name: :index_active_storage_attachments_on_record_and_name_and_locale if

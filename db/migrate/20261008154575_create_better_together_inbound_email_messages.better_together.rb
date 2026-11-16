@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260407233000)
 class CreateBetterTogetherInboundEmailMessages < ActiveRecord::Migration[7.2]
   def change
     create_table :better_together_inbound_email_messages, id: :uuid do |t|
