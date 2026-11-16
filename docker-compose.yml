@@ -9,6 +9,7 @@
 
 volumes:
   nl-venues-bundler-gems:
+    name: nl-venues_nl-venues-bundler-gems
   nl-venues-db-data:
   nl-venues-redis:
 
