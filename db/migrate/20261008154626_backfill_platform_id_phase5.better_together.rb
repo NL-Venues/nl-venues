@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260606002001)
 # Phase 5 — Backfill platform_id for all newly scoped model families.
 #
 # Tables with a real derivable owner are backfilled via join first, falling

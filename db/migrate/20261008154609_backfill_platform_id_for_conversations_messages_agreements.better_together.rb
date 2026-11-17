@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260605002004)
 # Phase 2 — Backfill platform_id for conversations, messages, and agreements.
 #
 # Conversations and agreements are derived from their creator's platform

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260413170000)
 class CreateBetterTogetherContentSecurityTables < ActiveRecord::Migration[7.2]
   def change
     create_content_security_items_table

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260415180000)
 class AddLifecycleFieldsToBetterTogetherAgreements < ActiveRecord::Migration[7.2]
   TABLE = :better_together_agreements
   LIFECYCLE_INDEX = :index_better_together_agreements_on_lifecycle_state

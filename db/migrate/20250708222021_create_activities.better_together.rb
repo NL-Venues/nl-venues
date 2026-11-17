@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20250607130736)
 # Migration responsible for creating a table with activities
 class CreateActivities < ActiveRecord::Migration[7.1]
   def change

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260722010000)
 class CreateBetterTogetherInboundEmailReplyTokens < ActiveRecord::Migration[7.2]
   def change
     unless table_exists?(:better_together_inbound_email_reply_tokens)

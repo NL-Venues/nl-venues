@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260408170000)
 class InstallActionMailboxAndInboundEmailScreening < ActiveRecord::Migration[7.2]
   def up
     create_action_mailbox_inbound_emails_table

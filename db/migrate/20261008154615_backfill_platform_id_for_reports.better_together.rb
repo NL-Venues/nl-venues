@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260605004003)
 # Phase 4 — Backfill platform_id for reports.
 #
 # Derived from the reported record's own platform first, falling back to the

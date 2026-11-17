@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20250325181358)
+# Floors represent one or more rooms on a single level of a building.
 class CreateBetterTogetherInfrastructureFloors < ActiveRecord::Migration[7.1]
   def change
     create_bt_table :floors, prefix: :better_together_infrastructure do |t|

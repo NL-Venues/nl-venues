@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260605003003)
 # Phase 3 — Backfill platform_id for categories, categorizations, and joatu exchanges.
 #
 # Categories have no owning record (shared taxonomy) and are assigned to the

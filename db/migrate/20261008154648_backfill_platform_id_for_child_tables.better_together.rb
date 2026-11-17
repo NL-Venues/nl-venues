@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260607006002)
 # Phase 8 — Backfill simple child tables from their parent platform_id.
 class BackfillPlatformIdForChildTables < ActiveRecord::Migration[7.2]
   PARENT_MAP = [

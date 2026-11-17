@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260320235959)
 class SeedPlatformMemberRoleBeforeHostBackfill < ActiveRecord::Migration[7.2]
   class Role < ActiveRecord::Base
     self.table_name = 'better_together_roles'

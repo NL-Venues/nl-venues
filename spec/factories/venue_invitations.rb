@@ -11,8 +11,8 @@ FactoryBot.define do
 
     association :invitable, factory: :better_together_platform
     association :inviter, factory: :person
-    association :platform_role, factory: :better_together_role
-    association :community_role, factory: :better_together_role
+    association :platform_role, factory: %i[better_together_role platform_role]
+    association :community_role, factory: %i[better_together_role community_role]
 
     after :create do |invitation|
       venue = create(:venue)

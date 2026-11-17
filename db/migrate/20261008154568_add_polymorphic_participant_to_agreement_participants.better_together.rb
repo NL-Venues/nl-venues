@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260404203000)
 class AddPolymorphicParticipantToAgreementParticipants < ActiveRecord::Migration[7.2]
   disable_ddl_transaction!
 

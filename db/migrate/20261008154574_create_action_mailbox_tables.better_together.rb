@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260407232000)
 class CreateActionMailboxTables < ActiveRecord::Migration[7.2]
   def change
     create_table :action_mailbox_inbound_emails, id: primary_key_type do |t|

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20251125142646)
 # Adds creator_id to pages table
 class AddCreatorToPages < ActiveRecord::Migration[7.2]
   def change

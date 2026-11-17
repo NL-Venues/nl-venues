@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260519100000)
 # Idempotent repair for 20260516193000_backfill_federated_mirrored_identifiers.
 # The original loads live app models; this uses inline AR stubs (CE pattern from
 # 20260412223000) so it is safe on fresh installs in future gem versions.

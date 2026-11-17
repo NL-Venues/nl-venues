@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20260717120000)
 # Metrics::Download/PageView already have platform_id NOT NULL, populated at creation
 # time from the *viewer's* current platform context (TrackDownloadJob/TrackPageViewJob),
 # not from the content actually downloaded/viewed. For federated/cross-platform content
