@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This migration comes from better_together (originally 20261117205154)
 # Adds the manage_platform_jobs permission (background jobs screen and /sidekiq) to every platform that
 # has roles, and grants it to each role on that platform holding manage_platform or
 # manage_platform_settings, so nobody who could open Sidekiq before loses it. Idempotent.
